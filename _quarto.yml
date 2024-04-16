@@ -1,0 +1,61 @@
+project:
+  type: book
+
+book:
+  title: "Hwan, Kaist MFE"
+  author: "Kim Hyeonghwan"
+  date: "2024. 3. 8."
+  cover-image: cover.png
+  chapters:
+    - index.qmd
+    - intro.qmd
+
+    - part : 24S_derivatives.qmd
+      chapters:
+        - Chapter3.qmd
+        - Chapter4.qmd
+        - Chapter5.qmd
+        - Chapter7.qmd
+        - Chapter10.qmd
+        - Chapter11.qmd
+        - 24S_derivatives_hw.qmd
+    - part : Python('24봄)
+      chapters: 
+        - 1. Python Basics.ipynb
+        - 2. Containers.ipynb
+        - Python Quiz1.qmd
+        - Python Quiz2.qmd
+        - Python Quiz3.qmd
+    - part : 채권분석('24봄)
+      chapters:
+        - 채권분석_hw1.qmd
+        - 채권분석_hw2.qmd
+        - 채권분석_hw3.qmd
+    - part : 투자분석('24봄)
+      chapters: 
+        - investment_hw1.qmd
+    - part : 재무회계('24봄)
+      chapters:
+        - 재무회계_ch1-3.qmd
+        - 재무회계_ch4.qmd
+        - 재무회계_ch5.qmd
+    - part : 경영통계분석('24봄)
+      chapters:
+        - 경영통계분석_hw1.qmd
+        - 경영통계분석_hw2.qmd 
+        - 경영통계분석_hw3.qmd
+#    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    linestretch : 2
+#  pdf:
+#    documentclass: scrreprt
+
+website: 
+  google-analytics: "G-SBVF5QZSW8"
+
+

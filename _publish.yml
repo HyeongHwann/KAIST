@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 6689031f-82f7-4ff6-afcd-fda1b278b578
+      url: 'https://hwan.quarto.pub/kaist'
