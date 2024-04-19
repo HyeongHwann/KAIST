@@ -33,7 +33,7 @@
 
     >>> game.sound.echo.echo_test()
 
-**FALSE!!** : __init__.py가 empty이므로 game package import시 하단의 하부구조가 자동으로 import 되지 않습니다. 따라서, eco.py 내의 함수 eco_test()를 호출하기 위해서는 eco.py 또는 eco_test()를 직접 호출하여야 합니다.
+**FALSE!!** : \_\_init\_\_.py가 empty이므로 game package import시 하단의 하부구조가 자동으로 import 되지 않습니다. 따라서, eco.py 내의 함수 eco_test()를 호출하기 위해서는 eco.py 또는 eco_test()를 직접 호출하여야 합니다.
 
 ④ >>> import game.sound.echo
 

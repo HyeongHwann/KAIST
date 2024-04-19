@@ -639,7 +639,7 @@
     "href": "24S_derivatives_hw.html#chapter11-properties-of-stock-options",
     "title": "선물옵션 HW(~midterm)",
     "section": "Chapter11 : Properties of Stock Options",
-    "text": "Chapter11 : Properties of Stock Options\n\nProblem 11.5, 18, 23, 24, 25\n\n\n\nChapter11\n\n\n\n11.5\n내재가치(intrinsic value)는 옵션을 현재시점에 권리행사한다면 얻을 수 있는 이익입니다. 따라서, 현재시점을 \\(t\\)라고 하면, 콜옵션의 내재가치는 \\(max(S_t-K)\\)입니다.\n미국형 옵션은 옵션매수자가 원하는 때에 권리행사를 할 수 있으므로, 즉시 권리행사를 한다면 항상 내재가치만큼의 이익을 실현할 수 있습니다. 따라서 내재가치가 옵션가치의 하한이 됩니다.\n한편, 유럽형 옵션은 만기시점에만 권리행사를 할 수 있으므로 기초자산에서 배당과 같은 중도현금흐름이 발생하면 옵션의 시간가치가 (-)로 형성될 수 있고, 이에 따라 내재가치보다 낮게 형성될 수 있습니다.\n예를 들어, 다음달 배당이 예정된 주식에 대한 만기 2개월의 콜옵션을 보유하고 있다면 배당락이 발생하기 전에 권리행사를 통해 내재가치만큼 이익을 얻고, 배당수익도 누리는 것이 최적의 선택일 것입니다. 그러나, 유럽형 옵션은 만기까지 권리행사할 수 없으므로 이러한 콜옵션의 가격은 현재 내재가치보다 낮게 형성될 것 입니다.\n\n\n11.18\nParity in American options\n\n\n11.23\n각 파라미터는 \\(T=1,\\;S_0=130,\\;K=120,\\;c=20,\\;p=5\\)이므로, 풋콜패리티를 이용하면 다음과 같이 정리할 수 있습니다.\n\\[c+Ke^{-rT}=p+S_0\\;\\Rightarrow\\;20+120e^{-r}=5+130 \\Rightarrow r=\\ln{\\frac{120}{145}}\\approx 4.26\\%\\]\n\n\n11.24\n각 파라미터는 \\(T=\\frac{1}{4},\\;K=20,\\;r=0.1,\\;S_0=19,\\;D=1e^{-0.1/12},\\;c=3,\\;p=3\\)입니다.\n풋콜패리티를 이용하여 콜옵션의 가치를 평가해보면,\n\\[c+Ke^{-rT}+D=p+S_0\\;\\Rightarrow\\;c+20e^{-0.025}+e^{-0.1/12}=3+19\\;\\Rightarrow\\;c\\approx 1.495\\]\n그러나, 현재 콜옵션의 시장가격이 3이므로 고평가되어있는 상태입니다.\n따라서, (1) 콜옵션을 매도하고, 이와 동시에 (2) 풋옵션과 주식을 매수, 행사가격과 배당의 현재가치(\\(Ke^{-rT}+D\\))만큼의 무이표채권을 발행(자금을 차입)한다면, 현재시점에 1.505만큼 무위험차익을 얻을 수 있습니다.\n\n\n\n\n\nflowchart LR\n    A[콜매도/풋매수/주식매수/자금차입]\n    A --&gt; B[현금흐름:+3-3-19+20.505=1.505]\n    B --&gt; C[주가&gt;행사가격:콜옵션 행사, K-S+S+D-K+D=0]\n    B --&gt; D[주가&lt;행사가격:풋옵션 행사, K-S+S+D-K+D=0]\n\n\n\n\n\n\n즉, 현재시점에 1.505만큼 수익이 발생하고 만기시점의 pay-off는 0이 됩니다.\n\n\n11.25\n콜옵션의 하한을 적용하면 다음과 같이 정리할 수 있습니다.\n\\((1)\\;\\;c_1\\geq S_0-K_1e^{-rT}\\)\n\\((2)\\;\\;c_2\\geq S_0-K_2e^{-rT}=S_0-\\frac{K_1+K_3}{2}e^{-rT}\\)\n\\((3)\\;\\;c_3\\geq S_0-K_3e^{-rT}\\)\n\\[(4)=\\frac{(1)+(3)}{2},\\;\\;\\frac{c_1+c_3}{2}\\geq S_0-\\frac{K_1+K_3}{2}e^{-rT}=c_2\\;\\;\\blacksquare\\]",
+    "text": "Chapter11 : Properties of Stock Options\n\nProblem 11.5, 18, 23, 24, 25\n\n\n\nChapter11\n\n\n\n11.5\n내재가치(intrinsic value)는 옵션을 현재시점에 권리행사한다면 얻을 수 있는 이익입니다. 따라서, 현재시점을 \\(t\\)라고 하면, 콜옵션의 내재가치는 \\(max(S_t-K)\\)입니다.\n미국형 옵션은 옵션매수자가 원하는 때에 권리행사를 할 수 있으므로, 즉시 권리행사를 한다면 항상 내재가치만큼의 이익을 실현할 수 있습니다. 따라서 내재가치가 옵션가치의 하한이 됩니다.\n한편, 유럽형 옵션은 만기시점에만 권리행사를 할 수 있으므로 기초자산에서 배당과 같은 중도현금흐름이 발생하면 옵션의 시간가치가 (-)로 형성될 수 있고, 이에 따라 내재가치보다 낮게 형성될 수 있습니다.\n예를 들어, 다음달 배당이 예정된 주식에 대한 만기 2개월의 콜옵션을 보유하고 있다면 배당락이 발생하기 전에 권리행사를 통해 내재가치만큼 이익을 얻고, 배당수익도 누리는 것이 최적의 선택일 것입니다. 그러나, 유럽형 옵션은 만기까지 권리행사할 수 없으므로 이러한 콜옵션의 가격은 현재 내재가치보다 낮게 형성될 것 입니다.\n\n\n11.18\nParity in American options\n\n\n11.23\n각 파라미터는 \\(T=1,\\;S_0=130,\\;K=120,\\;c=20,\\;p=5\\)이므로, 풋콜패리티를 이용하면 다음과 같이 정리할 수 있습니다.\n\\[c+Ke^{-rT}=p+S_0\\;\\Rightarrow\\;20+120e^{-r}=5+130 \\Rightarrow r=\\ln{\\frac{120}{145}}\\approx 4.26\\%\\]\n\n\n11.24\n각 파라미터는 \\(T=\\frac{1}{4},\\;K=20,\\;r=0.1,\\;S_0=19,\\;D=1e^{-0.1/12},\\;c=3,\\;p=3\\)입니다.\n풋콜패리티를 이용하여 콜옵션의 가치를 평가해보면,\n\\[c+Ke^{-rT}+D=p+S_0\\;\\Rightarrow\\;c+20e^{-0.025}+e^{-0.1/12}=3+19\\;\\Rightarrow\\;c\\approx 1.495\\]\n그러나, 현재 콜옵션의 시장가격이 3이므로 고평가되어있는 상태입니다.\n따라서, (1) 콜옵션을 매도하고, 이와 동시에 (2) 풋옵션과 주식을 매수, 행사가격과 배당의 현재가치(\\(Ke^{-rT}+D\\))만큼의 무이표채권을 발행(자금을 차입)한다면, 현재시점에 1.505만큼 무위험차익을 얻을 수 있습니다.\n\n\n\n\n\nflowchart LR\n    A[콜매도/풋매수/주식매수/자금차입]\n    A --&gt; B[현금흐름:+3-3-19+20.505=1.505]\n    B --&gt; C[주가&gt;행사가격:콜옵션 행사, K-S+S+D-K+D=0]\n    B --&gt; D[주가&lt;행사가격:풋옵션 행사, K-S+S+D-K+D=0]\n\n\n\n\n\n\n즉, 현재시점에 1.505만큼 수익이 발생하고 만기시점의 pay-off는 0이 됩니다.\n\n\n11.25\n만기 Payoff를 살펴보면 확인 가능합니다.",
     "crumbs": [
       "선물옵션('24봄)",
       "선물옵션 HW(~midterm)"
@@ -940,6 +940,83 @@
     "crumbs": [
       "Python('24봄)",
       "금융공학프로그래밍3, Quiz3"
+    ]
+  },
+  {
+    "objectID": "Python Quiz4.html",
+    "href": "Python Quiz4.html",
+    "title": "금융공학프로그래밍3, Quiz4",
+    "section": "",
+    "text": "1. Find out which one of following is wrong?\n① &gt;&gt;&gt; from game.sound import echo\nRight\n② &gt;&gt;&gt; from game.sound.echo import echo_test\nRight\n③ &gt;&gt;&gt; import game\nFALSE!! : __init__.py가 empty이므로 game package import시 하단의 하부구조가 자동으로 import 되지 않습니다. 따라서, eco.py 내의 함수 eco_test()를 호출하기 위해서는 eco.py 또는 eco_test()를 직접 호출하여야 합니다.\n④ &gt;&gt;&gt; import game.sound.echo\nRight",
+    "crumbs": [
+      "Python('24봄)",
+      "금융공학프로그래밍3, Quiz4"
+    ]
+  },
+  {
+    "objectID": "Python Quiz4.html#find-out-which-one-of-following-is-wrong",
+    "href": "Python Quiz4.html#find-out-which-one-of-following-is-wrong",
+    "title": "금융공학프로그래밍3, Quiz4",
+    "section": "",
+    "text": "game/\n__init__.py\nsound/\n    __init__.py\n    echo.py\n    wav.py\ngraphic/\n    __init__.py\n    screen.py\n    render.py\nplay/\n    __init__.py\n    run.py\n    test.py\n\n&gt;&gt;&gt; echo.echo_test()\n\n\n&gt;&gt;&gt; echo_test()\n\n\n&gt;&gt;&gt; game.sound.echo.echo_test()\n\n\n&gt;&gt;&gt; game.sound.echo.echo_test()",
+    "crumbs": [
+      "Python('24봄)",
+      "금융공학프로그래밍3, Quiz4"
+    ]
+  },
+  {
+    "objectID": "Python Quiz4.html#section",
+    "href": "Python Quiz4.html#section",
+    "title": "금융공학프로그래밍3, Quiz4",
+    "section": "2.",
+    "text": "2.\nnp.arrange[5]를 이용하여 array구조를 만들면, dtype이 integer인 array가 생성됩니다.\n이중 하나의 object를 float타입으로 수정하더라도, dtype은 integer로 고정되므로 입력한 float타입의 데이터가 integer로 수정되어 할당됩니다.",
+    "crumbs": [
+      "Python('24봄)",
+      "금융공학프로그래밍3, Quiz4"
+    ]
+  },
+  {
+    "objectID": "Python Quiz4.html#section-1",
+    "href": "Python Quiz4.html#section-1",
+    "title": "금융공학프로그래밍3, Quiz4",
+    "section": "3.",
+    "text": "3.\nindexing방식으로 호출하였으므로 1-dimensional이 됩니다. 2-dimensional을 유지하기 위해서는 slicing방식으로 호출하여야 합니다.\n(ex: rmat[0:1])",
+    "crumbs": [
+      "Python('24봄)",
+      "금융공학프로그래밍3, Quiz4"
+    ]
+  },
+  {
+    "objectID": "Python Quiz4.html#section-2",
+    "href": "Python Quiz4.html#section-2",
+    "title": "금융공학프로그래밍3, Quiz4",
+    "section": "4.",
+    "text": "4.\nnp.hstack 함수는 array를 병합하는 함수로, np.concatenate에 axis=1 옵션과 동일한 함수입니다.\n병합하는 두 array간 dimension이 동일해야하는데, a=2, b=1이므로 오류가 발생합니다.\n다른 dimension간 병합을 수행하려면 np.colmun_stack함수를 사용하여야 합니다.",
+    "crumbs": [
+      "Python('24봄)",
+      "금융공학프로그래밍3, Quiz4"
+    ]
+  },
+  {
+    "objectID": "Python Quiz4.html#section-3",
+    "href": "Python Quiz4.html#section-3",
+    "title": "금융공학프로그래밍3, Quiz4",
+    "section": "5.",
+    "text": "5.\na는 2-dim. 3X5 array, b는 0-dim. 3 array입니다.\nb[np.newaxis,:]는 0-dim인 b에 x축을 추가하여 1X3 array로 만들어주게 됩니다.\n3X5와 1X3간에 덧셈이 성립하지 않으므로 오류가 발생합니다.\n한편, b[:,np.newaxis]를 사용하면 3X1 array가 되므로, 덧셈이 가능합니다.",
+    "crumbs": [
+      "Python('24봄)",
+      "금융공학프로그래밍3, Quiz4"
+    ]
+  },
+  {
+    "objectID": "Python midterm.html",
+    "href": "Python midterm.html",
+    "title": "3  Python Midterm",
+    "section": "",
+    "text": "3.1 Problem 1.",
+    "crumbs": [
+      "Python('24봄)",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Python Midterm</span>"
     ]
   },
   {
@@ -1471,69 +1548,25 @@
     ]
   },
   {
-    "objectID": "Python Quiz4.html",
-    "href": "Python Quiz4.html",
-    "title": "금융공학프로그래밍3, Quiz4",
+    "objectID": "Python midterm.html#problem-1.",
+    "href": "Python midterm.html#problem-1.",
+    "title": "3  Python Midterm",
     "section": "",
-    "text": "1. Find out which one of following is wrong?\n① &gt;&gt;&gt; from game.sound import echo\nRight\n② &gt;&gt;&gt; from game.sound.echo import echo_test\nRight\n③ &gt;&gt;&gt; import game\nFALSE!! : init.py가 empty이므로 game package import시 하단의 하부구조가 자동으로 import 되지 않습니다. 따라서, eco.py 내의 함수 eco_test()를 호출하기 위해서는 eco.py 또는 eco_test()를 직접 호출하여야 합니다.\n④ &gt;&gt;&gt; import game.sound.echo\nRight",
+    "text": "3.1.1 (1)\n5개의 인자 facevalue=𝑃𝑉, couprate=𝑟, yield=𝑦, maturity=𝑀으로 입력하고, frequency=𝑓에 맞게 “annual”, “semi-annual”, “quarterly” 중 하나의 문자 값으로 입력하면, 위 식에 따라 계산된 채권가격과 듀레이션을 아래와 같은 형태의 튜플로 반환하는 함수 bondftn을 작성하여라.\n\ndef bondftn(pv,r,y,m,f=\"annual\",rnd=3):\n    if type(pv)!=float and type(pv)!=int : return print(\"error: pv should be number!!!\")\n    if type(r)!=float and type(r)!=int: return print(\"error: r should be number!!!\")\n    if type(y)!=float and type(y)!=int: return print(\"error: y should be number!!!\")\n    if type(m)!=int: return print(\"error: M should be integer!!!\")\n    if f==\"annual\": fre=1\n    elif f==\"semi-annual\": fre=2\n    elif f==\"quarterly\": fre=4\n    else: return print(\"error: input correct f : 'annual' or 'semi-annual' or 'quarterly'\")\n    n=fre*m\n    coupon=pv*r/100/fre\n    price=0.0\n    value_duration=0.0\n    for i in range(n):\n        if i==n-1: cf_i=pv+coupon\n        else: cf_i=coupon\n        pv_cf_i=cf_i/((1+(y/100/fre))**(i+1))\n        tw_pv_cf_i=((i+1)/fre)*cf_i/(1+(y/100/fre))**(i+1)\n        price+=pv_cf_i\n        value_duration+=tw_pv_cf_i\n    duration=value_duration/price\n    result=(round(price,rnd),round(duration,rnd))\n    return result\n\n\nbondftn(pv=100,r=5,y=4.5,m=2,f=\"quarterly\")\n\n100.951\n\n\n\n\n3.1.2 (2)\n만기 M이 5, 4, 3, 2, 1인 각 경우에 대해, 쿠폰이자율이 5%, 4%, 3%, 2%, 1% 인 각각에 대하여 만기수익률이 10%에 11%로 상승함에 따라 채권 가격의 변화율이 몇 %인지를 모두 계산한 뒤, 아래와 같은 중첩된 딕셔너리 result_dict으로 저장하여라.\n단, 액면가는 100, 쿠폰 지급 횟수는 연간 1회라고 하자.\n\nresult_dict=dict()\nfor i in range(5):\n    m_i=5-i\n    result_dict['M='+str(m_i)]=dict()\n    for j in range(5):\n        r_j=5-j\n        price_before=bondftn(pv=100,r=r_j,y=10,m=m_i,f=\"annual\")[0]\n        price_after=bondftn(pv=100,r=r_j,y=11,m=m_i,f=\"annual\")[0]\n        price_return=(price_after-price_before)/price_before\n        result_dict['M='+str(m_i)][str(r_j)+'%']=round(price_return,5)\nresult_dict\n\n{'M=5': {'5%': -0.03974,\n  '4%': -0.04046,\n  '3%': -0.04126,\n  '2%': -0.04215,\n  '1%': -0.04314},\n 'M=4': {'5%': -0.03287,\n  '4%': -0.03332,\n  '3%': -0.03381,\n  '2%': -0.03434,\n  '1%': -0.03491},\n 'M=3': {'5%': -0.02544,\n  '4%': -0.02568,\n  '3%': -0.02593,\n  '2%': -0.02619,\n  '1%': -0.02648},\n 'M=2': {'5%': -0.01749,\n  '4%': -0.01758,\n  '3%': -0.01765,\n  '2%': -0.01776,\n  '1%': -0.01784},\n 'M=1': {'5%': -0.00901,\n  '4%': -0.009,\n  '3%': -0.009,\n  '2%': -0.009,\n  '1%': -0.00901}}\n\n\n\nresult_dict['M=5']['5%']\n\n-0.03974\n\n\n\n\n3.1.3 (3)\n만기 M이 5, 4, 3, 2, 1인 각 경우에 대해, 쿠폰이자율이 5%, 4%, 3%, 2%, 1% 인 각각에 대하여 만기수익률이 10%로 주어졌을 때의 듀레이션을 (1)에서의 bondftn을 활용하여 모두 계산하여라.\n또한 이를 (2)에서와 동일한 구조를 가지는 (중첩된) 딕셔너리 result_dict_dur에 저장하여라.\n즉 아래와 같은 방식으로 값을 추출할 수 있어야 한다. 단, 여기서도 액면가는 100, 쿠폰 지급 횟수는 연간 1회라고 하자.\n\nresult_dict_dur=dict()\nfor i in range(5):\n    m_i=5-i\n    result_dict_dur['M='+str(m_i)]=dict()\n    for j in range(5):\n        r_j=5-j\n        result_dict_dur['M='+str(m_i)][str(r_j)+'%']=bondftn(pv=100,r=r_j,y=10,m=m_i,\n                                                             f=\"annual\",rnd=5)[1]\nresult_dict_dur\n\n{'M=5': {'5%': 4.48786,\n  '4%': 4.57019,\n  '3%': 4.66101,\n  '2%': 4.76171,\n  '1%': 4.874},\n 'M=4': {'5%': 3.6951,\n  '4%': 3.74653,\n  '3%': 3.80216,\n  '2%': 3.8625,\n  '1%': 3.9282},\n 'M=3': {'5%': 2.84899,\n  '4%': 2.87566,\n  '3%': 2.90394,\n  '2%': 2.93397,\n  '1%': 2.96593},\n 'M=2': {'5%': 1.95023,\n  '4%': 1.95941,\n  '3%': 1.96896,\n  '2%': 1.97889,\n  '1%': 1.98923},\n 'M=1': {'5%': 1.0, '4%': 1.0, '3%': 1.0, '2%': 1.0, '1%': 1.0}}\n\n\n\nresult_dict_dur['M=5']['4%']\n\n4.57019",
     "crumbs": [
       "Python('24봄)",
-      "금융공학프로그래밍3, Quiz4"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Python Midterm</span>"
     ]
   },
   {
-    "objectID": "Python Quiz4.html#find-out-which-one-of-following-is-wrong",
-    "href": "Python Quiz4.html#find-out-which-one-of-following-is-wrong",
-    "title": "금융공학프로그래밍3, Quiz4",
-    "section": "",
-    "text": "game/\n__init__.py\nsound/\n    __init__.py\n    echo.py\n    wav.py\ngraphic/\n    __init__.py\n    screen.py\n    render.py\nplay/\n    __init__.py\n    run.py\n    test.py\n\n&gt;&gt;&gt; echo.echo_test()\n\n\n&gt;&gt;&gt; echo_test()\n\n\n&gt;&gt;&gt; game.sound.echo.echo_test()\n\n\n&gt;&gt;&gt; game.sound.echo.echo_test()",
+    "objectID": "Python midterm.html#problem-2.",
+    "href": "Python midterm.html#problem-2.",
+    "title": "3  Python Midterm",
+    "section": "3.2 Problem 2.",
+    "text": "3.2 Problem 2.\n\n\n3.2.1 (1)\n어떤 1년 동안 발생하는 모든 청구들의 시간과 금액을 모의실험해 보자.\n0에서 시작하여1년 동안 보험회사의 잔고를 계산한 뒤 balance라는 리스트로 저장하여라.\n단, balance의 첫번째 값은 0이며, 보험 청구가 발생하는 시점(𝑡)에만, 해당 시점의 balance (그 시점까지 받은 보험료 수익(150𝑡)을 더하고, 그 시점에서 청구로 지급되는 보험금을 빼 주는 방식)를 계산하여 순서대로 저장할 것.\nAnswer\n먼저, 보험금의 연간 청구건수가 평균이 100인 포아송분포를 따르므로 \\(P(X=x)=\\frac{\\lambda^xe^{-\\lambda}}{x!},\\;\\lambda=100\\)를 만족합니다.\n다음으로, 보험금의 청구금액은 평균은 1, 분산은 1/2인 감마분포를 따르므로 \\(pdf,\\;f(x)=x^{k-1}\\frac{e^{-x/\\theta}}{\\theta^k\\Gamma(k)},\\;k\\theta=1,\\;k\\theta^2=1/2\\)입니다. 즉, \\(k=2,\\;\\theta=1/2\\)입니다.\n각 청구금액은 즉시 지급되며, 발생시점은 0~1 사이의 uniform distribution을 따르므로 \\(pdx.\\;f(x)=\\frac{1}{1-0}=1\\)입니다.\n이제, 1년간 발생하는 보험손익의 모의실험에 대한 청구건수(포아송분포)를 \\(N\\) 청구금액(감마분포), 청구시점(균등분포)를 각각 \\(g_i,\\;t_i\\; for\\; 1,...,N\\)라고 하면, %t=t_i% 시점의 balance는 아래와 같이 계산됩니다.\n\\[{balance}_{t_i}=150t_i-\\sum_{k=1}^{i}g_k\\]\n또한, 기말시점(t=1)의 최종 balance는 \\(150-\\sum_{all\\;k}g_k\\)가 됩니다.\n\n# 포아송, 감마, 균등분포에 다한 모의실험은 numpy의 random module 활용\nimport numpy as np\nfrom numpy import random as rd\nrd.seed(0)\nN=rd.poisson(lam=100,size=1)\nN=N[0]\nt=rd.uniform(low=0.0,high=1.0,size=N)\nt=np.sort(u)\ng=rd.gamma(shape=2.,scale=0.5,size=N)\nbalance=[0]\nfor i in range(N):\n    balance.append(round(t[i]*150-sum(g[:i+1]),4))\nbalance.append(round(150-sum(g),4))\n\n\nprint(balance[:5],balance[N-5:],sep=\"\\n\")\n\n[0, -1.9755, -2.1182, -2.7092, -3.9799]\n[44.5214, 47.2399, 48.4395, 48.2655, 47.6871, 48.74, 50.4839]\n\n\n\n\n3.2.2 (2)\n위 모의실험을 10000회 반복하여 다음에 대한 확률을 추정해 보자.\n\n보험회사가 최종적으로 가지게 되는 balance의 기대값(모의실험을 10000회 반복하였을 때 각 모의실험마다 계산된 balance의 최종값들의 평균으로 추정)은 얼마인가?\n보험회사의 balance가 1년 중 한번 이상 -5 이하로 떨어질 확률(10000회의 모의실험 중에서 balance가 -5이하로 떨어진 적이 있었던 경우의 비율로 추정)은 얼마인가?\n\nAnswer\n평균은 약 49.86, -5이하로 떨어질 확률은 약 7.05%입니다.\n\nlast_balance=list()\nminus5_balance=0\nfor k in range(10000):\n    rd.seed(k)\n    N=rd.poisson(lam=100,size=1)\n    N=N[0]\n    t=rd.uniform(low=0.0,high=1.0,size=N)\n    t=np.sort(t)\n    g=rd.gamma(shape=2.,scale=0.5,size=N)\n    balance=[0]\n    for i in range(N):\n        balance.append(round(t[i]*150-sum(g[:i+1]),4))\n    last_balance.append(round(150-sum(g),4))\n    balance.sort()\n    if balance[0]&lt;=-5:minus5_balance+=1\nprint(sum(last_balance)/10000,\n      minus5_balance/10000,sep=\"\\n\")\n\n49.864134890000095\n0.0705",
     "crumbs": [
       "Python('24봄)",
-      "금융공학프로그래밍3, Quiz4"
-    ]
-  },
-  {
-    "objectID": "Python Quiz4.html#section",
-    "href": "Python Quiz4.html#section",
-    "title": "금융공학프로그래밍3, Quiz4",
-    "section": "2.",
-    "text": "2.\nnp.arrange[5]를 이용하여 array구조를 만들면, dtype이 integer인 array가 생성됩니다.\n이중 하나의 object를 float타입으로 수정하더라도, dtype은 integer로 고정되므로 입력한 float타입의 데이터가 integer로 수정되어 할당됩니다.",
-    "crumbs": [
-      "Python('24봄)",
-      "금융공학프로그래밍3, Quiz4"
-    ]
-  },
-  {
-    "objectID": "Python Quiz4.html#section-1",
-    "href": "Python Quiz4.html#section-1",
-    "title": "금융공학프로그래밍3, Quiz4",
-    "section": "3.",
-    "text": "3.\nindexing방식으로 호출하였으므로 1-dimensional이 됩니다. 2-dimensional을 유지하기 위해서는 slicing방식으로 호출하여야 합니다.\n(ex: rmat[0:1])",
-    "crumbs": [
-      "Python('24봄)",
-      "금융공학프로그래밍3, Quiz4"
-    ]
-  },
-  {
-    "objectID": "Python Quiz4.html#section-2",
-    "href": "Python Quiz4.html#section-2",
-    "title": "금융공학프로그래밍3, Quiz4",
-    "section": "4.",
-    "text": "4.\nnp.hstack 함수는 array를 병합하는 함수로, np.concatenate에 axis=1 옵션과 동일한 함수입니다. 병합하는 두 array간 dimension이 동일해야하는데, a=2, b=1이므로 오류가 발생합니다. 다른 dimension간 병합을 수행하려면 np.colmun_stack함수를 사용하여야 합니다.",
-    "crumbs": [
-      "Python('24봄)",
-      "금융공학프로그래밍3, Quiz4"
-    ]
-  },
-  {
-    "objectID": "Python Quiz4.html#section-3",
-    "href": "Python Quiz4.html#section-3",
-    "title": "금융공학프로그래밍3, Quiz4",
-    "section": "5.",
-    "text": "5.\na는 2-dim. 3X5 array, b는 0-dim. 3 array입니다.\nb[np.newaxis,:]는 0-dim인 b에 x축을 추가하여 1X3 array로 만들어주게 됩니다.\n3X5와 1X3간에 덧셈이 성립하지 않으므로 오류가 발생합니다.\n한편, b[:,np.newaxis]를 사용하면 3X1 array가 되므로, 덧셈이 가능합니다.",
-    "crumbs": [
-      "Python('24봄)",
-      "금융공학프로그래밍3, Quiz4"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Python Midterm</span>"
     ]
   }
 ]
