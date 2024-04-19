@@ -23,6 +23,9 @@ book:
       chapters: 
         - 1. Python Basics.ipynb
         - 2. Containers.ipynb
+        - 3. Control Flows.ipynb
+        - 4. Functions.ipynb
+        - 5. Numpy.ipynb
         - Python Quiz1.qmd
         - Python Quiz2.qmd
         - Python Quiz3.qmd
