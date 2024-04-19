@@ -26,6 +26,7 @@ book:
         - Python Quiz1.qmd
         - Python Quiz2.qmd
         - Python Quiz3.qmd
+        - Python Quiz4.qmd
     - part : 채권분석('24봄)
       chapters:
         - 채권분석_hw1.qmd
