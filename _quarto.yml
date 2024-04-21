@@ -18,6 +18,7 @@ book:
         - Chapter7.qmd
         - Chapter10.qmd
         - Chapter11.qmd
+        - Chapter13.qmd
         - 24S_derivatives_hw.qmd
     - part : Python('24봄)
       chapters: 
@@ -30,7 +31,7 @@ book:
         - Python Quiz2.qmd
         - Python Quiz3.qmd
         - Python Quiz4.qmd
-        - Python midterm.ipynb
+        - Python midterm_quarto.qmd
     - part : 채권분석('24봄)
       chapters:
         - 채권분석_hw1.qmd

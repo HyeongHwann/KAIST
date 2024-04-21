@@ -40,8 +40,8 @@ risk-free rate는 최근 미국에서 대체지표금리로 선정한 SOFR기반
 # import data&library
 rm(list = ls())
 library(tidyverse)
-setwd("C:/Users/Lenovo/hwan/quarto/") # in Thinkpad z16
-# setwd("/Users/hwan/Desktop/KAIST") # in Macbook
+# setwd("C:/Users/Lenovo/hwan/quarto/") # in Thinkpad z16
+setwd("/Users/hwan/Desktop/KAIST") # in Macbook
 nasdaq <- read_csv("투자분석_NDAQ.csv")
 cme <- read_csv("투자분석_CME.csv")
 ice <- read_csv("투자분석_ICE.csv")
