@@ -2,7 +2,7 @@
 
 ## (1) Quetion 4-9
 
-![Chapter4-9](재무회계_4-9.png)
+![Chapter4-9](images/재무회계_4-9.png)
 
 First, the criteria in the definition of a liablilty is following :
 
@@ -30,7 +30,7 @@ If a probability of loss lawsuit is more than certain level,(In GAAP 80%, IFRS 5
 
 ## (2) Quetion 4-15
 
-![Chapter4-15](재무회계_4-15.png)
+![Chapter4-15](images/재무회계_4-15.png)
 
 *Total Assets = Current Assets + Noncurrent Assets*
 

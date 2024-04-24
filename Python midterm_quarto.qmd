@@ -4,7 +4,7 @@
 
 ## Problem 1.
 
-![](Python midterm1.png)
+![](images/Python_midterm1.png)
 
 ### (1)
 5개의 인자 facevalue=𝑃𝑉, couprate=𝑟, yield=𝑦, maturity=𝑀으로 입력하고, frequency=𝑓에 맞게 “annual”, “semi-annual”, “quarterly” 중 하나의 문자 값으로 입력하면, 위 식에 따라 계산된 채권가격과 듀레이션을 아래와 같은 형태의 튜플로 반환하는 함수 bondftn을 작성하여라.
@@ -177,7 +177,7 @@ result_dict_dur['M=5']['4%']
 
 ## Problem 2.
 
-![](Python midterm2.png)
+![](images/Python_midterm2.png)
 
 ### (1) 
 어떤 1년 동안 발생하는 모든 청구들의 시간과 금액을 모의실험해 보자.

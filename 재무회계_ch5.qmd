@@ -2,7 +2,7 @@
 
 ## (1) Question 5-12
 
-![Chapter5-12](재무회계_5-12.png)
+![Chapter5-12](images/재무회계_5-12.png)
 
 (a) NOT recognized. It is before a completion of the earning process.
 (b) NOT recognized. It is before a completion of the earning process.
@@ -13,7 +13,7 @@
 
 ## (2) Question 5-18
 
-![Chapter5-18](재무회계_5-18.png)
+![Chapter5-18](images/재무회계_5-18.png)
 
 The following table is the re-organized income statement.
 

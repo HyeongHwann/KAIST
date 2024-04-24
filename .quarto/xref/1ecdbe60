@@ -1,1 +1,1 @@
-{"headings":["기본-원리","헷징에-대한-논쟁","베이시스-리스크","교차-헷지cross-hedging","주가지수선물","스택-앤-롤stack-and-roll","sec-CAPM"],"entries":[{"key":"sec-CAPM","caption":"Appendix : CAPM","order":{"number":1,"section":[0,7,0,0,0,0,0]}}],"options":{"chapters":true}}
+{"options":{"chapters":true},"entries":[{"order":{"section":[0,7,0,0,0,0,0],"number":1},"key":"sec-CAPM","caption":"Appendix : CAPM"}],"headings":["기본-원리","헷징에-대한-논쟁","베이시스-리스크","교차-헷지cross-hedging","주가지수선물","스택-앤-롤stack-and-roll","sec-CAPM"]}

@@ -1,6 +1,6 @@
 # 선물옵션('24봄)
 
-<img src="hull.jpg" width="300px" height="400px"></img>
+<img src="images/hull.jpg" width="300px" height="400px"></img>
 
 류혁선 교수님의 선물옵션 수업입니다.
 

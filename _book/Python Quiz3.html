@@ -276,7 +276,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5. Numpy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5. Numpy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Numpy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -461,7 +461,7 @@ window.Quarto = {
 <section id="calculate-the-following-by-using-while-loop." class="level2">
 <h2 class="anchored" data-anchor-id="calculate-the-following-by-using-while-loop.">1. Calculate the following by using ‘while’ loop.</h2>
 <p><span class="math display">\[\sum_{i\geq 1, i^4&lt;1000}^{10}i^4\]</span></p>
-<div id="d36f04da" class="cell" data-execution_count="1">
+<div id="6e38ffcb" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>i<span class="op">=</span><span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sum_i4<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i<span class="op">&gt;=</span><span class="dv">1</span> <span class="kw">and</span> i<span class="op">**</span><span class="dv">4</span><span class="op">&lt;</span><span class="dv">1000</span> <span class="kw">and</span> i<span class="op">&lt;=</span><span class="dv">10</span>:</span>
@@ -475,13 +475,13 @@ window.Quarto = {
 </section>
 <section id="list-comprehension" class="level2">
 <h2 class="anchored" data-anchor-id="list-comprehension">2. List comprehension</h2>
-<div id="ef01774f" class="cell" data-execution_count="2">
+<div id="497bd5d4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>[<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="cartesian-product" class="level3">
 <h3 class="anchored" data-anchor-id="cartesian-product">(1) Cartesian product</h3>
-<div id="ba489343" class="cell" data-execution_count="3">
+<div id="f447b355" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>z<span class="op">=</span><span class="bu">list</span>([i,j] <span class="cf">for</span> i <span class="kw">in</span> x <span class="cf">for</span> j <span class="kw">in</span> y)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -506,7 +506,7 @@ window.Quarto = {
 </section>
 <section id="cartesian-product-with-condition" class="level3">
 <h3 class="anchored" data-anchor-id="cartesian-product-with-condition">(2) Cartesian product with condition</h3>
-<div id="b494f593" class="cell" data-execution_count="4">
+<div id="cc14ff0d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>z<span class="op">=</span><span class="bu">list</span>([i,j] <span class="cf">for</span> i <span class="kw">in</span> x <span class="cf">for</span> j <span class="kw">in</span> y <span class="cf">if</span> i<span class="op">+</span>j<span class="op">&gt;=</span><span class="dv">8</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -529,7 +529,7 @@ window.Quarto = {
 </section>
 <section id="function" class="level2">
 <h2 class="anchored" data-anchor-id="function">3. Function</h2>
-<div id="21f75c3b" class="cell" data-execution_count="5">
+<div id="cf222a31" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> grading (score):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(score)<span class="op">!=</span><span class="bu">int</span> <span class="kw">and</span> <span class="bu">type</span>(score)<span class="op">!=</span><span class="bu">float</span>:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Score must be integer or float type."</span>)</span>
@@ -546,13 +546,13 @@ window.Quarto = {
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Grade is F !"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6c49186c" class="cell" data-execution_count="6">
+<div id="f1a6f70c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>grading(score<span class="op">=</span><span class="dv">75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Grade is C !</code></pre>
 </div>
 </div>
-<div id="af85c467" class="cell" data-execution_count="7">
+<div id="850eebde" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>grading(score<span class="op">=-</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Score must be a number between 0 and 100!!</code></pre>
@@ -564,7 +564,7 @@ window.Quarto = {
 <ol type="1">
 <li>positional argument와 keyword argument를 혼용하는 경우, positional argument가 먼저 와야합니다. keyword argument를 먼저 사용하는 경우 오류가 발생합니다.</li>
 </ol>
-<div id="6866de51" class="cell" data-execution_count="8">
+<div id="9e6330ce" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> infoprint( name, age, gender):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name, <span class="st">'is'</span>, age, <span class="st">'years old'</span>, gender, <span class="st">'.'</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -573,7 +573,7 @@ window.Quarto = {
 <ol start="2" type="1">
 <li>’Kim’은 positional argument로 name에 할당, ’male’은 keyword로 gender에 할당되고 age는 할당값이 없어서 오류가 발생하였습니다. 함수 정의시 age는 default값을 정의하지 않았으므로 반드시 값을 할당해야 합니다.</li>
 </ol>
-<div id="e7d62d81" class="cell" data-execution_count="9">
+<div id="2cef34a4" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> infoprint( name, age, gender):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name, <span class="st">'is'</span>, age, <span class="st">'years old'</span>, gender, <span class="st">'.'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -582,7 +582,7 @@ window.Quarto = {
 <ol start="3" type="1">
 <li>함수 myfactorial 정의시 변수 fac을 사용하는데, 해당 변수는 함수 안에서 정의된바 없으므로 함수 밖에서 정의된 global variable인 fac을 가져와서 사용하게 됩니다. 그러나, 이런 경우 global variable의 읽기만 가능하고 쓰기는 불가능하므로 for문 내에 fac을 수정하는 것은 허용되지 않습니다.</li>
 </ol>
-<div id="9527cfd2" class="cell" data-execution_count="10">
+<div id="7b441219" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fac <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> myfactorial(n):</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
