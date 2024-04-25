@@ -413,6 +413,12 @@ window.Quarto = {
  <span class="menu-text">경영통계분석 과제3</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./경영통계분석_hw4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">경영통계분석 과제4</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -466,13 +472,13 @@ window.Quarto = {
 
 <section id="dictionary" class="level2">
 <h2 class="anchored" data-anchor-id="dictionary">1. Dictionary</h2>
-<div id="2a686ed6" class="cell" data-execution_count="1">
+<div id="076121fd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>icecream<span class="op">=</span><span class="bu">dict</span>(cheery<span class="op">=</span>[<span class="dv">12</span>,<span class="dv">100</span>],cookies<span class="op">=</span>[<span class="dv">18</span>,<span class="dv">200</span>],greentea<span class="op">=</span>[<span class="dv">15</span>,<span class="dv">140</span>],mango<span class="op">=</span>[<span class="dv">10</span>,<span class="dv">200</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section">(1)</h3>
 <p>Change the price of ‘cookies’ as 13</p>
-<div id="865e8a44" class="cell" data-execution_count="2">
+<div id="053f8bd6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>icecream[<span class="st">'cookies'</span>][<span class="dv">0</span>]<span class="op">=</span><span class="dv">13</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>icecream[<span class="st">'cookies'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -483,7 +489,7 @@ window.Quarto = {
 <section id="section-1" class="level3">
 <h3 class="anchored" data-anchor-id="section-1">(2)</h3>
 <p>Add the following information to the dictionary ‘icecream’. - ‘Strawberry’ is priced at 12 and inventory is 170. - ‘pistachio’ is priced at 15 and inventory is 100.</p>
-<div id="64ed202a" class="cell" data-execution_count="3">
+<div id="9bcc1780" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>update_dict<span class="op">=</span><span class="bu">dict</span>(Strawberry<span class="op">=</span>[<span class="dv">12</span>,<span class="dv">170</span>],pistachio<span class="op">=</span>[<span class="dv">15</span>,<span class="dv">100</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>icecream.update(update_dict)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>icecream</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -500,14 +506,14 @@ window.Quarto = {
 </section>
 <section id="dictionary2" class="level2">
 <h2 class="anchored" data-anchor-id="dictionary2">2. Dictionary2</h2>
-<div id="67f74e6c" class="cell" data-execution_count="4">
+<div id="d4df2937" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d1<span class="op">=</span><span class="bu">dict</span>(key1<span class="op">=</span><span class="dv">1</span>,key2<span class="op">=</span><span class="dv">3</span>,key3<span class="op">=</span><span class="dv">2</span>,key10<span class="op">=</span><span class="dv">7</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>d2<span class="op">=</span><span class="bu">dict</span>(key3<span class="op">=</span><span class="dv">1</span>,key2<span class="op">=</span><span class="dv">2</span>,key7<span class="op">=</span><span class="dv">2</span>,key5<span class="op">=</span><span class="dv">4</span>,key1<span class="op">=</span><span class="dv">7</span>,key9<span class="op">=</span><span class="dv">8</span>,key0<span class="op">=</span><span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="section-2" class="level3">
 <h3 class="anchored" data-anchor-id="section-2">(1)</h3>
 <p>Select the largest two values of the dictionary ‘d2’.</p>
-<div id="d4f46a2a" class="cell" data-execution_count="5">
+<div id="550ca513" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d2_list<span class="op">=</span><span class="bu">list</span>(d2.values())</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>d2_list.sort()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d2_list.reverse()</span>
@@ -520,7 +526,7 @@ window.Quarto = {
 <section id="section-3" class="level3">
 <h3 class="anchored" data-anchor-id="section-3">(2)</h3>
 <p>Create a set of values which are the unique values of ‘d2’.</p>
-<div id="6f85084b" class="cell" data-execution_count="6">
+<div id="b6e6b35c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(d2.values())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>{1, 2, 4, 7, 8}</code></pre>
@@ -530,7 +536,7 @@ window.Quarto = {
 <section id="section-4" class="level3">
 <h3 class="anchored" data-anchor-id="section-4">(3)</h3>
 <p>Write code that returns True if keys of ‘d1’ are all contained in the key of ‘d2’ and False otherwise.</p>
-<div id="e6c69596" class="cell" data-execution_count="7">
+<div id="11b21750" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(d1.keys()) <span class="op">&lt;=</span> <span class="bu">set</span>(d2.keys())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>False</code></pre>
@@ -540,7 +546,7 @@ window.Quarto = {
 <section id="section-5" class="level3">
 <h3 class="anchored" data-anchor-id="section-5">(4)</h3>
 <p>Create a set of values which are common in both ‘d1’ and ‘d2’</p>
-<div id="2474639a" class="cell" data-execution_count="8">
+<div id="0d4a7df2" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(d1.values())<span class="op">&amp;</span><span class="bu">set</span>(d2.values())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{1, 2, 7}</code></pre>
@@ -550,7 +556,7 @@ window.Quarto = {
 <section id="if-statement" class="level3">
 <h3 class="anchored" data-anchor-id="if-statement">3. if statement</h3>
 <p>For any arbitrary string object A, if the first character of A is ‘#’, we want it to be replaced with ‘*’. Otherwise, we want to add ‘*’ as the first character of A. Write appropriate code using an if statement for this</p>
-<div id="8af25472" class="cell" data-execution_count="9">
+<div id="dfbd5fbc" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>A<span class="op">=</span><span class="st">"#abcde"</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> A[<span class="dv">0</span>]<span class="op">==</span><span class="st">"#"</span>:</span>
@@ -567,7 +573,7 @@ window.Quarto = {
 <section id="for-loop" class="level3">
 <h3 class="anchored" data-anchor-id="for-loop">4. for loop</h3>
 <p>Calculate the following by using ‘for’ loop : <span class="math inline">\(\sum_{i=1}^{10} i^4\)</span></p>
-<div id="dd0ea2c4" class="cell" data-execution_count="10">
+<div id="2c7bc6fe" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>result<span class="op">=</span><span class="bu">int</span>()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">11</span>):</span>
