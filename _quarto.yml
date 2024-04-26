@@ -48,6 +48,7 @@ book:
         - 재무회계_ch1-3.qmd
         - 재무회계_ch4.qmd
         - 재무회계_ch5.qmd
+        - 재무회계_ch6.qmd
     - part : 경영통계분석('24봄)
       chapters:
         - 경영통계분석_hw1.qmd
