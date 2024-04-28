@@ -1,5 +1,7 @@
 \usepackage[hangul]{kotex}
 \usepackage{iftex}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
 \ifPDFTeX
  \usepackage{dhucs-nanumfont}
 \else\ifXeTeX
@@ -7,3 +9,4 @@
 \else\ifLuaTeX
  \setmainhangulfont{NanumMyeongjo}
 \fi\fi\fi
+\pagestyle{empty}
