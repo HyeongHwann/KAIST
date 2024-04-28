@@ -657,6 +657,61 @@
     ]
   },
   {
+    "objectID": "Chapter14.html",
+    "href": "Chapter14.html",
+    "title": "Chapter 14",
+    "section": "",
+    "text": "14.1 The Markov Property\n마코프 과정(Markov process)는 특수한 형태의 확률과정으로, 시간의 흐름에 따라 변하는 변수의 미래값은 오직 현재 값에만 영향을 받는 확률과정입니다.\n즉, 일주일 단위 주가가 마코브 과정을 따른다면 다음 주의 주가는 오직 현재의 주가에만 영향을 받으며, 일주일 전의 주가는 아무런 영향을 주지 않는다는 의미입니다.\n이는 효율적 시장가설(EMH, Efficient Market Hypothesis)의 weak-form을 만족한다는 의미와 유사합니다.",
+    "crumbs": [
+      "선물옵션('24봄)",
+      "Chapter 14"
+    ]
+  },
+  {
+    "objectID": "Chapter14.html#continuous-time-stochastic-processes",
+    "href": "Chapter14.html#continuous-time-stochastic-processes",
+    "title": "Chapter 14",
+    "section": "14.2 Continuous-time Stochastic Processes",
+    "text": "14.2 Continuous-time Stochastic Processes\n먼저, 마코프 과정을 따르는 확률변수를 생각해보겠습니다. 현재 가격이 \\(P_t\\)이고, 하루동안의 가격변화는 표준정규분포 \\(\\phi(0,1)\\)를 따른다고 가정하겠습니다. 그럼 2일간의 가격변화의 분포는 어떻게 될까요?\n먼저, 2일간의 가격변화는 각각 하루씩 표준정규분포를 따르는 확률변수로 분할할 수 있습니다. 각 확률변수는 마코프 과정이므로 하루의 변화가 다음 하루의 변화에 영향을 주지않습니다. 즉, 각각 하루의 표준정규분포는 서로 독립입니다.\n따라서, 2일간의 가격변화의 평균과 분산은 각각의 평균 및 분산의 합산이므로 \\(\\phi(0,2)\\)를 따르게 될 것입니다. 이를 일반화한다면, 기간 \\(T\\)동안 주가의 변화가 \\(\\phi(0,T)\\)를 따른다면 매우 작은 시간의 변화 \\(\\Delta t\\)동안의 주가의 변화는 \\(\\phi(0,\\Delta t)\\)를 따른다고 할 수 있습니다.\n여기서, 표준편차 \\(\\sigma\\)는 기간의 누적에 \\(\\sqrt{\\;\\;}\\)의 크기로 변화한다는 사실에 주목해야합니다.\n\nWiener Process\n위너과정은 마코프 과정의 일종으로, 평균변화율(drift rate)이 0이고 변동률(variance rate)이 1인 확률과정입니다. 이는 물리학에서 분자의 음직임을 표현하는데 쓰이기도 하며, 브라운 운동(Brownian motion)이라고도 불립니다.\n확률변수 \\(z\\)가 위너과정을 따른다는 것은, 아래 두 성질을 만족한다는 의미입니다.\nProperty 1. \\(For\\;\\Delta t,\\;\\Delta z=\\epsilon\\sqrt{\\Delta t}\\;for\\;\\epsilon\\sim\\phi(0,1)\\)이다.\nProperty 2. \\(For\\;any\\;\\Delta t_1\\neq\\Delta t_2.\\;\\Delta z_1\\;and\\;\\Delta z_2\\;are\\;independent.\\)\n첫번째 성질을 통해 \\(\\Delta z\\)의 평균은 0, 분산은 \\(\\Delta t\\), 표준편차는 \\(\\sqrt{\\Delta t}\\)임을 알 수 있고, 두번째 성질을 통해 위너과정이 마코프과정의 한 종류임을 알 수 있습니다.\n또한, \\(\\sqrt{\\Delta t}&gt;&gt;\\Delta t\\;for\\;\\Delta t\\rightarrow0\\)이므로 단위시간 \\(\\Delta t\\)가 작아지면 작아질수록 위너과정을 따르는 확률변수 \\(\\Delta z\\)의 변동성(표준편차)은 단위시간 대비 매우 커짐을 알 수 있습니다.\n이는 미시세상에서 위너과정을 따르는 확률변수가 매우 복잡하게 움직이는 것을 의미하며, 이를 통해 브라운 운동의 특징 두가지를 도출할 수 있습니다.\n\n위너과정을 따르는 확률변수 \\(z\\)에 대해, 어떠한 구간의 시간을 관측하더라도 \\(z\\)의 경로의 길이의 기대값은 무한대로 발산한다.\n특정 값의 \\(z\\)에 대해, 해당 값을 가지는 횟수는 어떠한 구간의 시간을 관측하더라도 무한대로 발산한다.\n\n\n\nGeneralized Wiener Process\n앞서 평균변화율(drift rate)가 0이고 변동률(variance rate)이 1인 위너과정을 살펴보았습니다.\n일반화된 위너과정(GWP)이란, 단위시간에 대해 평균변화율과 변동률이 상수 a, b로 주어진 위너과정을 말합니다.\n즉, \\(dx=a\\,dt+b\\,dW\\)인 확률과정 \\(x\\)는 GWP를 따르게 됩니다.\n여기서 \\(dW\\)는 위너과정이므로, 단위시간 \\(\\Delta t\\)가 주어져 있다면 GWP를 따르는 확률변수 \\(x\\)의 변화량은 \\(\\Delta x=a\\,\\Delta t+b\\,\\epsilon\\sqrt{\\Delta t}\\)으로 표현할 수 있습니다.\n따라서, \\(\\Delta x\\)의 평균은 \\(a\\,\\Delta t\\), 분산은 \\(b^2\\,\\Delta t\\)이며 변동성(표준편차)은 \\(b\\,\\sqrt{\\Delta t}\\)가 되며, 단위시간이 충분히 작다면 \\(\\Delta x\\sim\\phi(a\\Delta t,b^2\\Delta t)\\)로 근사할 수 있습니다.\n\n\n\n\n\n\n기간 T에 대한 GWP의 분포\n\n\n\n\\(x\\)가 GWP를 따른다고 가정하고, 기간 \\(T\\)년과 충분히 작은 단위시간 \\(\\Delta t,\\;\\sum_{k=1}^N\\Delta t=N\\Delta t=T\\)가 주어져있다고 가정하겠습니다.\n각각의 \\(\\Delta x_i=a\\Delta t+b\\epsilon_i\\sqrt{\\Delta t}\\)도 역시 GWP를 따르게 되며, 모두 독립입니다.\n그러면, 확률변수 \\(x\\)의 기간중 누적변화 \\(x_T-x_0=\\sum\\Delta x_i\\)는 아래와 같이 전개할 수 있습니다.\n\\[\\sum\\Delta x_i=\\sum a\\Delta t+\\sum b\\epsilon_i\\sqrt{\\Delta t}=a\\,T+b\\sqrt{\\Delta t}\\sum \\epsilon_i\\]\n각각의 \\(\\epsilon_i\\sim\\phi(0,1)\\)은 독립이므로 \\(\\sum \\epsilon_i\\sim\\phi(0,N)\\)입니다. 따라서,\n\\[x_t-x_0\\sim\\phi(aT,b^2\\Delta t\\,N)=\\phi(aT,b^2T)\\]\n\n\n위너과정, \\(a\\,dt\\) 및 GWP의 경로를 도식화하면 아래와 같습니다.\n\n\n\nPath of Stochastic processes : \\(dW,\\;\\;a\\,dt,\\;\\;a\\,dt+b\\,dW\\)\n\n\n\n\n\n\n\n\n14.8 Fractional Brownian Motion\n\n\n\n지금까지 살펴본 브라운운동(위너과정, GWP)은 마코프 과정의 특수한 형태로서 소개하였습니다.\n즉, 확률변수 \\(X\\)가 GWP를 따른다면 각 \\(\\Delta t\\)에 대해 \\(\\Delta X\\)는 독립적으로 결정됩니다. 이는 \\(t&gt;s&gt;0\\)로 시간이 주어질 때 \\(X(t)-X(s),\\;X(s)\\)가 독립이라는 의미이므로, 다음과 같이 정리할 수 있습니다. \\[Var[X(t)-X(s)]=E[(X(t)-X(s))^2]-E[X(t)-X(s)]^2=\\sigma^2(t-s)\\]\n\\(E[X(s)X(t)]=E[X(s)^2]+E[X(s)(X(t)-X(s))]=s\\sigma^2\\)$\n그러나, 실제 현실에서는 주가의 흐름이 마코프 과정을 따르지 않는 경우가 발생합니다. 즉, 주가의 흐름이 과거 주가에 영향을 받는 자기상관성이 관측되고는 합니다.\n이러한 경우를 모델링(e.g. rough volatility models)하기 위해 등장한 개념이 Fractional Brownian Motion입니다.\nFBM은 브라운 운동을 일반화한 개념으로, 시간이 \\(t&gt;s&gt;0\\)로 주어졌을 때, 자기상관성의 척도로 \\(H\\)(Hurst exponent)가 주어지며, 다음과 같이 정의됩니다.\n\\[E[(X(t)-X(s))^2]=\\sigma^2(t-s)^{2H},\\;E[X(s)X(t)]=\\frac{\\sigma^2}{2}(t^{2H}+s^{2H}-(t-s)^{2H})\\]\n\\(H&gt;0.5\\)일때 양의 자기상관성, \\(H&lt;0.5\\)일때 음의 자기상관성, \\(H=0.5\\)일 때 마코프 과정(랜덤워크)을 띄게 되는 브라운 운동입니다.\n\n\n\n\nIto’s Process\n일반화된 위너과정에서 평균변화율과 변동률이 상수로 주어졌다면, 이토과정에서는 평균변화율과 변동률이 시간과 확률변수에 대한 함수 \\(a(x,t),\\;b(x,t)\\)로 주어지게 됩니다. 즉,\n\\[dx=a(x,t)\\,dt+b(x,t)\\,dW,\\;\\;\\Delta x=a(x,t)\\Delta t+b(x,t)\\epsilon\\sqrt{\\Delta t}\\]\n이를 통해 이토과정도 마코프과정의 한 종류임을 알 수 있습니다.",
+    "crumbs": [
+      "선물옵션('24봄)",
+      "Chapter 14"
+    ]
+  },
+  {
+    "objectID": "Chapter14.html#the-process-for-a-stock-price",
+    "href": "Chapter14.html#the-process-for-a-stock-price",
+    "title": "Chapter 14",
+    "section": "14.3 The Process for a Stock Price",
+    "text": "14.3 The Process for a Stock Price\n이제, 배당이 없는 주식에 대해 확률과정을 모델링해보겠습니다.\n먼저 주가가 일반화된 위너과정(GWP)를 따른다고 가정한다면, 평균변화율과 변동률이 상수인 확률과정 \\(dS=a\\,dt+b\\,dW\\)를 생각할 수 있습니다.\n그러나, 이는 주가의 변화분이 상수로 고정되어있다는 의미인데 현실과 부합하지 않는 부분이 존재합니다. 실제 주식투자자는 현재 주가가 높고 낮음에 관계없이 투자자금 대비 기대수익률을 고려하는데, 그렇다면 동일한 기대수익률 하에 주가의 변화분이 현재 주가에 따라 달라지기 때문입니다.\n따라서, 주가 대신에 주가수익률이 GWP를 따른다고 가정하는 것이 보다 현실에 부합하게 되며 평균변화율이 \\(\\mu\\), 변동률이 \\(\\sigma\\)로 주어져있다면 주가수익률은 다음과 같은 이토과정을 따른다고 할 수 있습니다. 이러한 주식의 확률과정을 기하학적 브라운 운동(GBM, Geometric Brownian Motion)이라고도 합니다.\n\\[dS=\\mu\\,S\\,dt+\\sigma\\,S\\,dW \\Rightarrow\\]\n\\[\\frac{dS}{S}=\\mu\\,dt+\\sigma\\,dW,\\;\\;\\frac{\\Delta S}{S}=\\mu\\Delta t+\\sigma\\epsilon\\sqrt{\\Delta t}\\]\n단위시간 \\(\\Delta t\\)에 대해 평균은 \\(\\mu\\Delta t\\), 분산은 \\(\\sigma^2\\Delta t\\)이며 표준편차는 \\(\\sigma\\sqrt{\\Delta t}\\)이고, 단위시간이 충분히 작다면 \\(\\frac{\\Delta S}{S}\\sim\\phi(\\mu\\Delta t,\\sigma^2\\Delta t)\\)입니다.\n즉, \\(\\mu\\)와 각각 단위시간에 대한 주가의 기대수익률과 표준편차를 연율로 환산한 것입니다.\n\n\n\n\n\n\nWarning\n\n\n\n단위시간에 대한 주가수익률은 정규분포로 근사할 수 있으나, 기간 \\(T\\)에 대한 주가 \\(S_T-S_0\\)는 평균변화율(\\(\\mu\\,S_t\\))이 상수로 주어져있지 않기 때문에 14.2의 GWP와 동일한 방법으로 전개할 수 없습니다.\n대신에, 주가의 연환산 기대수익률 및 표준편차가 주어져있다면 \\(\\frac{\\Delta S}{S}\\sim\\phi(\\mu\\Delta t,\\sigma^2\\Delta t)\\)를 이용한 몬테카를로 시뮬레이션(Monte Carlo Simultation)을 통해 주가 \\(S_T\\)를 모델링할 수 있습니다.",
+    "crumbs": [
+      "선물옵션('24봄)",
+      "Chapter 14"
+    ]
+  },
+  {
+    "objectID": "Chapter14.html#itos-lemma",
+    "href": "Chapter14.html#itos-lemma",
+    "title": "Chapter 14",
+    "section": "14.6 Ito’s Lemma",
+    "text": "14.6 Ito’s Lemma\n앞선 장에서 우리는 파생상품의 가격결정이 기초자산과의 관계로부터 시작하여 기초자산의 현재가격을 통해 결정된다는 것을 살펴보았습니다. 즉, 파생상품의 가격은 기초자산의 가격의 함수입니다.\n여기에 확률과정을 적용하면, 파생상품의 가격은 확률변수인 기초자산의 가격과 시간에 대한 함수형태로 표현할 수 있다는 것입니다. 그렇다면 확률변수를 이용한 함수는 어떤 방식으로 움직이며, 어떠한 확률과정을 따르게 되는걸까요? 여기서 이토의 보조정리(Ito’s Lemma)라고 불리는 아주 중요한 개념이 등장합니다.\n이토의 보조정리란, 이토과정을 따르는 확률변수 \\(dx=a(x,t)dt+b(x,t)dW\\)와 확률변수 및 시간에 대한 함수 \\(G=f(x,t)\\)가 주어져있을 때, \\(G\\)가 다음과 같은 확률과정을 따르게 된다는 정리입니다.\n\\[dG=(\\frac{\\partial G}{\\partial x}a+\\frac{\\partial G}{\\partial t}+\\frac{1}{2}\\frac{\\partial^2 G}{\\partial x^2}b^2)dt+\\frac{\\partial G}{\\partial x}b\\,dW\\]\n즉, 평균변화율이 \\(\\frac{\\partial G}{\\partial x}a+\\frac{\\partial G}{\\partial t}+\\frac{1}{2}\\frac{\\partial^2 G}{\\partial x^2}b^2\\)이며 변동률이 \\(\\frac{\\partial G}{\\partial x}b\\)인 이토과정을 따른다는 의미입니다.\n이제, 파생상품의 가격 \\(G=f(S,t)\\)와 주가의 확률과정 \\(dS=\\mu\\,S\\,dt+\\sigma\\,S\\,dW\\)에 이토의 보조정리를 적용하겠습니다.\n\\[dG=(\\frac{\\partial G}{\\partial S}\\mu\\,S+\\frac{\\partial G}{\\partial t}+\\frac{1}{2}\\frac{\\partial^2 G}{\\partial S^2}\\sigma^2\\,S^2)dt+\\frac{\\partial G}{\\partial S}\\sigma\\,S\\,dW\\]\n즉, 파생상품의 가격 역시 기초자산과 유사한 이토과정을 따르게 되며, 동일한 위너과정 \\(dW\\)에 의해 그 경로가 결정됩니다. 이 개념은 다음 장의 BSM(Black Sholes Merton) 모형의 결과를 도출할 때 핵심개념으로 이용됩니다.",
+    "crumbs": [
+      "선물옵션('24봄)",
+      "Chapter 14"
+    ]
+  },
+  {
+    "objectID": "Chapter14.html#application-of-itos-lemma",
+    "href": "Chapter14.html#application-of-itos-lemma",
+    "title": "Chapter 14",
+    "section": "14.7 Application of Ito’s Lemma",
+    "text": "14.7 Application of Ito’s Lemma\n\nForward Contract\n\\(t\\)시점의 선도가격은 \\(F_0=S_0e^{r(T-t)}\\)이므로, 무위험이자율이 주어져있다면 이토의 보조정리를 적용할 수 있습니다.\n\\[dF=(\\frac{\\partial F}{\\partial S}\\mu\\,S+\\frac{\\partial F}{\\partial t}+\\frac{1}{2}\\frac{\\partial^2 F}{\\partial S^2}\\sigma^2\\,S^2)dt+\\frac{\\partial F}{\\partial S}\\sigma\\,S\\,dW\\]\n\\[=(e^{r(T-t)}\\mu\\,S-rSe^{r(T-t)})dt+e^{r(T-t)}\\sigma\\,S\\,dW\\]\n\\[\\therefore\\;dF=(\\mu-r)\\,F\\,dt+\\sigma\\,F\\,dW\\]\n\n\nThe Lognormal property\n\\(G=ln\\,S\\)라고 하면, \\(\\frac{dG}{dS}=\\frac{1}{S},\\;\\frac{dG}{dt}=0,\\;\\frac{d^2G}{dS^2}=-\\frac{1}{S^2}\\)\n\\[dG=(\\frac{\\partial G}{\\partial S}\\mu\\,S+\\frac{\\partial G}{\\partial t}+\\frac{1}{2}\\frac{\\partial^2 G}{\\partial S^2}\\sigma^2\\,S^2)dt+\\frac{\\partial G}{\\partial S}\\sigma\\,S\\,dW\\]\n\\[=(\\frac{1}{S}\\mu\\,S-\\frac{1}{2}\\frac{1}{S^2}\\sigma^2S^2)dt+\\frac{1}{S}\\sigma\\,S\\,dW\\]\n\\[\\therefore\\;dG=(\\mu-\\frac{1}{2}\\sigma^2)dt+\\sigma\\,dW\\]\n이토의 보조정리에 따라, 이토과정을 따르는 주가에 자연로그를 취하면 GWP를 따르게 됩니다. 이제, 14.2의 전개식을 적용하면 기간 \\(T\\)에 대한 주가의 로그수익률이 정규분포를 따르게 됨을 유도할 수 있습니다.\n\\[ln\\,S_T-ln\\,S_0=ln\\frac{S_t}{S_0}\\sim\\phi((\\mu-\\frac{1}{2}\\sigma^2)T,\\sigma^2\\,T)\\]",
+    "crumbs": [
+      "선물옵션('24봄)",
+      "Chapter 14"
+    ]
+  },
+  {
     "objectID": "24S_derivatives_hw.html",
     "href": "24S_derivatives_hw.html",
     "title": "선물옵션 HW(~midterm)",
@@ -904,28 +959,6 @@
     "title": "3  Control Flows",
     "section": "3.3 Loops - for loop",
     "text": "3.3 Loops - for loop\n\n# for interating_var in iterable:\n#    statements\n\n\n# exercise 3\n\na=input(\"When you enter...\")\na_int=int(a)\nprint(\"Input a number: \"+a,\n          \"The output will be...\",\n          sep=\"\\n\")\nfor i in range(1,10):\n    print(a+\" x \"+str(i)+\" = \"+str(a_int*i))\n\nInput a number: 99\nThe output will be...\n99 x 1 = 99\n99 x 2 = 198\n99 x 3 = 297\n99 x 4 = 396\n99 x 5 = 495\n99 x 6 = 594\n99 x 7 = 693\n99 x 8 = 792\n99 x 9 = 891\n\n\n\n# exercise 4\nsum_even=0\nsum_odd=0\nfor i in range(10001):\n    if i%2==0:\n        sum_even+=i\n    else:sum_odd+=i\n\nprint(sum_even,\n      sum_odd,\n      sum_even+sum_odd,\n      sep='\\n')\n\n25005000\n25000000\n50005000\n\n\n\n# exercise 5\nfibonacci=[1,1]\nfor i in range(10):\n    fibonacci.append(fibonacci[i]+fibonacci[i+1])\nprint(\n    fibonacci,\n    sum(fibonacci),\n    sep='\\n'\n)\n\n[1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]\n376\n\n\n\n# exercise 6\na=input(\"When you enter alpha-num string...\")\nletter_index=list()\ndigits_index=list()\nnon_index=list()\nprint(\n    \"Sample Data : \"+a,\n    \"The output will be...\",\n    sep='\\n'\n)\nfor i in range(0,len(a)):\n    if a[i].isalpha():\n        letter_index.append(i)\n    elif a[i].isnumeric():\n        digits_index.append(i)\n    else: non_index.append(i)\n\nprint(\n    \"Letters {} at {}\".format(len(letter_index),letter_index),\n    \"Digits {} at {}\".format(len(digits_index),digits_index),\n    \"And there are {} at {} which are NOT alphanumeric\".format(len(non_index),non_index),\n    sep='\\n'\n)\n\nSample Data : sample asdfl11231,2,1,3.2  21\nThe output will be...\nLetters 11 at [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]\nDigits 11 at [12, 13, 14, 15, 16, 18, 20, 22, 24, 27, 28]\nAnd there are 7 at [6, 17, 19, 21, 23, 25, 26] which are NOT alphanumeric",
-    "crumbs": [
-      "Python('24봄)",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Control Flows</span>"
-    ]
-  },
-  {
-    "objectID": "3. Control Flows.html#loops---while-loop",
-    "href": "3. Control Flows.html#loops---while-loop",
-    "title": "3  Control Flows",
-    "section": "3.4 Loops - while loop",
-    "text": "3.4 Loops - while loop",
-    "crumbs": [
-      "Python('24봄)",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Control Flows</span>"
-    ]
-  },
-  {
-    "objectID": "3. Control Flows.html#appendix-montecarlo-simulation",
-    "href": "3. Control Flows.html#appendix-montecarlo-simulation",
-    "title": "3  Control Flows",
-    "section": "3.5 Appendix : Montecarlo Simulation",
-    "text": "3.5 Appendix : Montecarlo Simulation",
     "crumbs": [
       "Python('24봄)",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Control Flows</span>"
@@ -1427,6 +1460,28 @@
     ]
   },
   {
+    "objectID": "investment_hw2.html",
+    "href": "investment_hw2.html",
+    "title": "투자분석 과제2",
+    "section": "",
+    "text": "Problems",
+    "crumbs": [
+      "투자분석('24봄)",
+      "투자분석 과제2"
+    ]
+  },
+  {
+    "objectID": "investment_hw2.html#answer",
+    "href": "investment_hw2.html#answer",
+    "title": "투자분석 과제2",
+    "section": "Answer",
+    "text": "Answer\n(a)\n저는 CME group(CME), ICE(ICE), Nasdaq(NDAQ)K 세가지 종목을 선정하였습니다.\n선정 배경으로는,\n\n제가 거래소 산업에 관심이 많고,\n세 주식 모두 미국에 상장되어있는 대표적인 글로벌 거래소이며,\n동일한 거래소 산업이고 S&P500지수의 구성종목이라 동일 선상에서 비교하기 적합할 것으로 보이기 때문입니다.\n\n세 주식의 일별수정주가(Adj. close), 벤치마크지수인 S&P500지수의 일별수정가격, 무위험이자율로 채택한 미연준의 일별 Effective-FFR(Federel Funds Rate)를 활용하였습니다.\n기간 : 직전 10년(2014.4 ~ 2024.3)\n출처 : [Yahoo Finance](https://finance.yahoo.com/)\n산출방법 :\n    (월수익률) 지난달 말 대비 월말 수익률\n    (월초과수익률) 월수익률 - 월말FFR/12\n    (월분산) 월/월초과수익률의 표본표준편차\n    (평균수익률) 월/월초과수익률을 산술평균하여 연환산 (x12)\n    (평균분산) 월분산을 산술평균하여 연환산 (x12)\n\nlibrary(tidyverse)\n# stocks and market index S&P500 from yahoo finance\ncme &lt;- read_csv(\"investment_hw/cme.csv\") %&gt;% tibble()\nndaq &lt;- read_csv(\"investment_hw/ndaq.csv\") %&gt;% tibble()\nice &lt;- read_csv(\"investment_hw/ice.csv\") %&gt;% tibble()\nspx &lt;- read_csv(\"investment_hw/spx.csv\") %&gt;% tibble()\n# risk-free rate is effective-FFR(federal funds rate)\nffr &lt;- read_csv(\"investment_hw/fedfunds.csv\") %&gt;% tibble()\n# set period 10years\nstrt_dd='20140101'; end_dd='20240331'\n\n(b)\n\n# tidy data\nraw_data &lt;- tibble()\nraw_data &lt;- cme %&gt;% mutate(cme=`Adj Close`) %&gt;% select(Date,cme) %&gt;% \n  left_join(ndaq %&gt;% mutate(ndaq=`Adj Close`) %&gt;% select(Date,ndaq)) %&gt;% \n  left_join(ice %&gt;% mutate(ice=`Adj Close`) %&gt;% select(Date,ice)) %&gt;% \n  left_join(spx %&gt;% mutate(spx=`Adj Close`) %&gt;% select(Date,spx)) %&gt;% \n  mutate(day=gsub(\"-\",\"\",Date)) %&gt;% \n  mutate(year=substr(day,1,4)) %&gt;% \n  mutate(month=substr(day,1,6)) %&gt;% \n  filter(day&gt;=strt_dd,day&lt;=end_dd) %&gt;% \n  left_join(ffr %&gt;% \n              mutate(ffr=FEDFUNDS/100,\n                     month=substr(gsub(\"-\",\"\",as.character(DATE)),1,6)) %&gt;% \n              select(month,ffr)) %&gt;% \n  select(year,month,day,cme,ndaq,ice,spx,ffr,Date)\n# using monthly return\nmonthly_raw &lt;- tibble()\nmonthly_raw &lt;- raw_data %&gt;% \n  group_by(year,month) %&gt;% \n  arrange(day %&gt;% desc()) %&gt;% \n  slice(1) %&gt;% \n  pivot_longer(.,c(\"cme\",\"ndaq\",\"ice\",\"spx\"),\n               names_to = \"name\",values_to = \"price\") %&gt;% \n  ungroup() %&gt;% \n  arrange(name,year,month) %&gt;% \n  mutate(return=price/lag(price)-1) %&gt;%  # monthly return\n  mutate(excess_return=return-ffr*(1/12)) %&gt;% \n  filter(as.integer(month)&gt;=201404)\n\n# calculate arithmatic mean&var and var-cov matrix of excess return of stocks\nmonthly_stat &lt;- tibble()\nmonthly_stat &lt;- monthly_raw %&gt;% \n  ungroup() %&gt;% \n  group_by(name) %&gt;% \n  summarise(avg_excess=mean(excess_return)*12,\n            var_excess=sd(excess_return)^2*12,\n            avg_return=mean(return)*12,\n            var_return=sd(return)^2*12,\n            avg_rf=mean(ffr)) # Annualized\n# Cov matrix\nvariance_matrix &lt;- monthly_raw %&gt;% \n  ungroup() %&gt;%\n  select(month,name,excess_return) %&gt;% \n  pivot_wider(names_from = \"name\", values_from = \"excess_return\") %&gt;% \n  select(cme,ice,ndaq,spx) %&gt;% \n  var()\n# Corr matrix\ncor_matrix &lt;- monthly_raw %&gt;% \n  ungroup() %&gt;%\n  select(month,name,excess_return) %&gt;% \n  pivot_wider(names_from = \"name\", values_from = \"excess_return\") %&gt;% \n  select(cme,ice,ndaq,spx) %&gt;% \n  cor()\n\n위 방법을 기준으로 산출한 각 주식의 평균초과수익률(연환산) 및 공분산행렬은 아래와 같습니다.\nExcess return : CME 15.0%, ICE 14.4%, Nasdaq 18.8%\n\nmonthly_stat\n\n# A tibble: 4 × 6\n  name  avg_excess var_excess avg_return var_return avg_rf\n  &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1 cme        0.150     0.0340      0.165     0.0340 0.0141\n2 ice        0.144     0.0414      0.158     0.0415 0.0141\n3 ndaq       0.188     0.0415      0.202     0.0413 0.0141\n4 spx        0.101     0.0229      0.115     0.0229 0.0141\n\n\nVariance-Covariance Matrix of three stocks&Benchmark index\n\nvariance_matrix\n\n              cme         ice        ndaq          spx\ncme  0.0028310476 0.001767299 0.001138796 0.0008194417\nice  0.0017672988 0.003452184 0.002149990 0.0016652315\nndaq 0.0011387956 0.002149990 0.003456322 0.0016308630\nspx  0.0008194417 0.001665231 0.001630863 0.0019071007\n\n\nCorrelation Matrix of three stocks&Benchmark index\n\ncor_matrix\n\n           cme       ice      ndaq       spx\ncme  1.0000000 0.5653136 0.3640534 0.3526612\nice  0.5653136 1.0000000 0.6224185 0.6489942\nndaq 0.3640534 0.6224185 1.0000000 0.6352191\nspx  0.3526612 0.6489942 0.6352191 1.0000000\n\n\n(c)\n각 주식의 기대수익률과 미래변동성이 과거실현값과 동일하다고 가정하겠습니다.\n공매도는 없다고 가정하였으므로 각 주식의 비중이 양수가 되도록 설정하고, 먼저 두개의 주식으로 구성된 포트폴리오의 efficient frontier를 각각 구하도록 하겠습니다.\n그 다음, 하나의 주식과 다른 두 주식의 포트폴리오를 재결합하면 새로운 포트폴리오를 구성할 수 있으며, 이를 반복하여 efficient frontier를 도식화할 수 있습니다.\n아래 코드에서는 ICE의 구성비중을 5%, 10%, … , 95%로 고정하고 CME-Nasdaq 포트폴리오와 재결합을 반복하여 efficient frontier를 구현하였습니다.\n\n# Portfolio return/vol of variance combinations three stocks\nportfolio &lt;- tibble()\nportfolio &lt;- tibble(cme=seq(0,1,0.002),ice=seq(1,0,-0.002)) %&gt;% \n  union_all(.,tibble(cme=seq(0,1,0.002),ice=0)) %&gt;% \n  union_all(.,tibble(cme=0,ice=seq(1,0,-0.002)))\n\nfor(i in seq(0.05,0.95,0.05)){portfolio &lt;- portfolio %&gt;%\n  union_all(.,tibble(cme=seq(0,1-i,0.005),ice=i))}\nfor(i in seq(0.25,0.30,0.01)){portfolio &lt;- portfolio %&gt;%\n  union_all(.,tibble(cme=seq(0,1-i,0.005),ice=i))}\n\nportfolio &lt;- portfolio %&gt;% \n  mutate(ndaq=1-cme-ice) %&gt;% \n  mutate(return=cme*monthly_stat$avg_return[1]\n         +ice*monthly_stat$avg_return[2]\n         +ndaq*monthly_stat$avg_return[3],\n         vol=sqrt(cme^2*monthly_stat$var_return[1]\n                  +ice^2*monthly_stat$var_return[2]\n                  +ndaq^2*monthly_stat$var_return[3]\n                  +2*cme*ice*variance_matrix[2]\n                  +2*cme*ndaq*variance_matrix[3]\n                  +2*ndaq*ice*variance_matrix[7])) %&gt;% \n  mutate(sharpe=(return-monthly_stat$avg_rf[1])/vol)\n\nplot_portfolio &lt;- ggplot(data=portfolio,mapping=aes(x=vol,y=return))+\n  geom_point(data=portfolio %&gt;% filter(ndaq==0),size=0.5,color=\"red\")+\n  geom_point(data=portfolio %&gt;% filter(ice==0),size=0.5,color=\"blue\")+\n  geom_point(data=portfolio %&gt;% filter(cme==0),size=0.5,color=\"green\")+\n  scale_x_continuous(limits=c(0.08,0.22))+\n  scale_y_continuous(limits=c(0.15,0.21))+\n  labs(title = \"Invest Opportunity of three stocks\",\n       x=\"standard deviation\",y=\"expected return\") +\n  annotate(geom=\"text\",x=0.182,y=0.17,label=\"CME\")+\n  annotate(geom=\"text\",x=0.202,y=0.205,label=\"Nasdaq\")+\n  annotate(geom=\"text\",x=0.202,y=0.162,label=\"ICE\")+\n  theme_bw()\n\nplot_combination &lt;- plot_portfolio +\n  geom_point(data=portfolio %&gt;% filter(cme!=0&ice!=0&ndaq!=0),size=1,\n  color=\"black\",alpha=0.1)\n\nplot_combination\n\n\n\n\n\n\n\n\n(d)\nTangent p/f는 Sharpe r/o를 최대화시키는 세 주식의 조합으로, 위에서 도식화한 투자기회에 대하여 무위험이자율을 y절편으로 가지는 접선을 그려서 시각화할 수 있습니다.\n접선의 기울기는 포트폴리오의 초과수익률을 변동성으로 나눈 값으로 Sharpe r/o가 되므로, 이 접선이 CAL에 해당합니다.\n\nsharpe=max(portfolio$sharpe)\ntangent &lt;- tibble(vol=seq(0.08,0.17,0.01)) %&gt;% \n  mutate(return=monthly_stat$avg_rf[1]+sharpe*vol)\n\nplot_tangent &lt;- plot_combination+\n  geom_line(data=tangent)+\n  scale_x_continuous(limits=c(0.04,0.26))+\n  scale_y_continuous(limits=c(0.11,0.25))+\n  annotate(geom=\"text\",x=0.125,y=0.23,label=\"CAL, y=1.3667x+0.0141\")+\n  annotate(geom=\"text\",x=0.125,y=0.22,label=\"sharpe r/o=1.3667\")+\n  annotate(geom=\"text\",x=0.1,y=0.18,label=\"Tangent p/f\")\n\nScale for x is already present.\nAdding another scale for x, which will replace the existing scale.\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\nplot_tangent\n\n\n\n\n\n\n\n\n이 때, Tangent p/f의 기대수익률/변동성/구성비율은 아래와 같습니다.\n\nportfolio %&gt;% arrange(sharpe %&gt;% desc()) %&gt;% slice(1)\n\n# A tibble: 1 × 6\n    cme   ice  ndaq return   vol sharpe\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1  0.36  0.27  0.37  0.177 0.119   1.37\n\n\n(e)\nTangent p/f에서 CME, Nasdaq의 비중은 각각 36%, 37%로 이미 30%를 초과하였습니다. 따라서 30%를 초과보유할 주식을 선정할 때 두 주식을 선정한다면 최적포트폴리오는 (d)의 Tangent p/f와 동일할 것 입니다.\n한편, ICE를 선정한다면 (d)의 Tangent p/f 구성이 불가능합니다. 이 경우 새로운 efficient frontier는 아래와 같이 도식화할 수 있으며, 새로운 최적포트폴리오는 ICE의 비중이 정확히 30%일 때 결정됩니다.\n\n# Set ice&gt;=0.3\nportfolio2 &lt;- portfolio %&gt;% filter(ice&gt;=0.3)\nsharpe2=max(portfolio2$sharpe)\ntangent2 &lt;- tibble(vol=seq(0.1,0.14,0.01)) %&gt;% \n  mutate(return=monthly_stat$avg_rf[1]+sharpe2*vol)\n\nportfolio2 %&gt;% arrange(desc(sharpe))\n\n# A tibble: 1,905 × 6\n     cme   ice  ndaq return   vol sharpe\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n 1 0.34    0.3 0.36   0.176 0.119   1.36\n 2 0.34    0.3 0.36   0.176 0.119   1.36\n 3 0.345   0.3 0.355  0.176 0.119   1.36\n 4 0.345   0.3 0.355  0.176 0.119   1.36\n 5 0.335   0.3 0.365  0.176 0.119   1.36\n 6 0.335   0.3 0.365  0.176 0.119   1.36\n 7 0.35    0.3 0.35   0.176 0.119   1.36\n 8 0.35    0.3 0.35   0.176 0.119   1.36\n 9 0.33    0.3 0.37   0.176 0.119   1.36\n10 0.33    0.3 0.37   0.176 0.119   1.36\n# ℹ 1,895 more rows\n\nplot_tangent2 &lt;- plot_portfolio +\n  geom_point(data=portfolio2 %&gt;% filter(cme!=0&ice!=0&ndaq!=0),\n             size=1,color=\"black\",alpha=0.2)+\n  geom_line(data=tangent2)+\n  annotate(geom=\"text\",x=0.117,y=0.2,label=\"CAL, y=1.3639x+0.0141\")+\n  annotate(geom=\"text\",x=0.117,y=0.193,label=\"sharpe r/o=1.3639\")+\n  annotate(geom=\"text\",x=0.11,y=0.18,label=\"Optimal p/f\")\nplot_tangent2\n\n\n\n\n\n\n\n\nOptimal p/f의 기대수익률/변동성/구성비율은 아래와 같습니다.\n\noptimal &lt;- portfolio2 %&gt;% arrange(sharpe %&gt;% desc()) %&gt;% slice(1)\noptimal\n\n# A tibble: 1 × 6\n    cme   ice  ndaq return   vol sharpe\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1  0.34   0.3  0.36  0.176 0.119   1.36\n\n\n(f)\n먼저, 포트폴리오의 연환산수익률이 정규분포를 따른다면 표준정규분포표를 참조하여 Value at Risk를 다음과 같이 산출할 수 있습니다.\n\\[5\\%\\;VaR=E(r_p)-1.65\\sigma_p=0.176-1.65\\times 0.119=-1.99\\%\\]\n\nVaR=optimal$return-1.65*optimal$vol; VaR\n\n[1] -0.01990571\n\n\n만약 수익률의 분포가 정규분포가 아니라면, Historical VaR 및 ES(Expected Shortfall)을 산출할 수 있습니다. 이를 데이터의 참조기간인 과거 10년간 최적포트폴리오의 월수익률이 필요합니다.\n위의 최적포트폴리오는 CME 34%, ICE 30%, Nasdaq 36%로 구성된 포트폴리오이므로, 거래비용 등을 무시하고 매월말 포트폴리오의 구성비율을 조정한다고 가정하고 포트폴리오의 명목금액을 \\(P_t\\), 각 주식의 \\((t,t+1)\\) 월수익률을 \\(r_{t,k}\\)라고 한다면 \\((t,t+1)\\)간 포트폴리오의 월수익률 \\(r_t\\)는 다음과 같습니다.\n\\[P_{t+1}=0.34\\times P_t\\times (1+r_{t,cme})+0.3\\times P_t\\times (1+r_{t,ice})+0.36\\times P_t\\times (1+r_{t,ndaq})\\]\n\\[\\Rightarrow 1+r_t=\\frac{P_{t+1}}{P_t}=0.34\\times (1+r_{t,cme})+0.3\\times (1+r_{t,ice})+0.36\\times (1+r_{t,ndaq})\\]\n이를 적용하면 과거 10년간 최적포트폴리오의 월수익률 120개를 얻을 수 있습니다.\n이를 오름차순으로 정렬하면 Historical 5% VaR은 6번째 관측값이며, 5% ES는 6개의 관측값의 평균으로 산출할 수 있습니다. 이는 월수익률 기반 VaR 및 ES이므로 \\(\\sqrt{12}\\)를 곱하여 연환산하도록 하겠습니다.\n\noptimal_monthly &lt;- tibble()\noptimal_monthly &lt;- monthly_raw %&gt;% \n  select(month,name,return) %&gt;% \n  pivot_wider(names_from = \"name\", values_from = \"return\") %&gt;% \n  mutate(pf_return=optimal$cme*(1+cme)+optimal$ice*(1+ice)+optimal$ndaq*(1+ndaq)-1) %&gt;% \n  select(month,cme,ice,ndaq,pf_return) %&gt;% \n  arrange(pf_return) %&gt;% \n  slice(1:6)\noptimal_monthly\n\n# A tibble: 6 × 5\n  month       cme     ice    ndaq pf_return\n  &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n1 202204 -0.0779  -0.123  -0.117    -0.106 \n2 202002 -0.0842  -0.105  -0.119    -0.103 \n3 202003 -0.127   -0.0917 -0.0697   -0.0957\n4 202209 -0.0899  -0.101  -0.0448   -0.0769\n5 202201  0.00455 -0.0739 -0.147    -0.0734\n6 202205 -0.0935  -0.116  -0.0134   -0.0714\n\n\nAnnualized 5% VaR은 -24.78%, ES는 -30.38%입니다.\n정규분포 가정 하에 산출한 VaR과 큰 차이가 나는 이유는 지난 22년 Covid-19 팬데믹으로 인해 이례적으로 주가가 월 7% 이상 하락하는 급락장이 지속(Left fat tail)되었는데, 이때의 outlier 표본이 Historical VaR 산출을 지배한 반면 정규분포 근사시에는 반영되지 않아 차이가 발생하는 것으로 추정됩니다.\n\nhist_VaR &lt;- optimal_monthly$pf_return[6]*sqrt(12)\nhist_ES &lt;- mean(optimal_monthly$pf_return[1:6])*sqrt(12)\npaste(round(hist_VaR,6), round(hist_ES,6) , round(VaR,6), sep=\" / \")\n\n[1] \"-0.247279 / -0.303873 / -0.019906\"\n\n\n(g)\n위의 최적포트폴리오와 무위험자산을 이용하여 투자를 결정한다면, 최종적인 포트폴리오의 기대수익률 및 변동성은 자본배분선(\\(E(r_p)=1.3639\\sigma_p+0.0141\\)) 위에서 결정될 것입니다.\n이때, 무위험자산의 비중은 투자자의 위험회피정도에 따른 효용함수 \\(U=E(r_p)-\\frac{1}{2}A\\sigma_p^2\\)를 최대화시키는 수준에서 결정됩니다.\n이에 따라 산출한 무위험자산의 비중은 모든 경우(A=2, 3.5, 5)에서 0이 됩니다. 이는 과거기간 중 제로금리 기간이 다소 길어 무위험자산의 수익률이 낮은 반면, 선정한 주식의 기대수익률은 상대적으로 높아 일어난 것으로 추정됩니다.\n부가적으로, 무위험자산의 비중 산식 \\(r^*=1-\\frac{E(r_p)-r_f}{A\\sigma_p^2}\\)를 역산하여 위험회피정도 \\(A\\)를 역산해보면, 약 11.48까지는 최적포트폴리오를 100% 보유하는 것이 효용을 극대화시키는 투자결정입니다.\n\n# Utility function to verify risk-free asset ratio\nutility &lt;- tibble(vol=seq(optimal$vol,0,-0.0001)) %&gt;% \n  mutate(return=sharpe2*vol+monthly_stat$avg_rf[1]) %&gt;% \n  mutate(rf_ratio=(optimal$return-return)/(optimal$return-monthly_stat$avg_rf[1])) %&gt;% \n  mutate(a2=return-0.5*2*vol^2,\n         a3.5=return-0.5*3.5*vol^2,\n         a5=return-0.5*5*vol^2)\nutility %&gt;% arrange(desc(a5)) %&gt;% slice(1)\n\n# A tibble: 1 × 6\n    vol return rf_ratio    a2  a3.5    a5\n  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 0.119  0.176        0 0.162 0.151 0.141\n\n\n\n(optimal$return-monthly_stat$avg_rf[1])/optimal$vol^2\n\n[1] 11.48027",
+    "crumbs": [
+      "투자분석('24봄)",
+      "투자분석 과제2"
+    ]
+  },
+  {
     "objectID": "재무회계_ch1-3.html",
     "href": "재무회계_ch1-3.html",
     "title": "재무회계 Ch1-3 과제",
@@ -1545,6 +1600,17 @@
     "crumbs": [
       "재무회계('24봄)",
       "재무회계 Ch5 과제"
+    ]
+  },
+  {
+    "objectID": "재무회계_ch6.html",
+    "href": "재무회계_ch6.html",
+    "title": "재무회계 Ch6 과제",
+    "section": "",
+    "text": "Answer\nBecause a company makes all sales on account, total sales is sum of cash collections and account receivable.\nThere are EUR33,551m cash collections and EUR138m increase in account receivavle, so 33551+138=EUR33,689m will be a total sales of company during the year.\n\nAnswer\nCost will be cash payments + increase payable - increase inventories.\n646.9+5.9-5.7=USD647.1m is cost of goods sold of company for the year.\n\nAnswer\n\\[Incloud\\;Airlines\\] \\[Statement\\;of\\;Cash\\;Flow\\;for\\;the\\;recent\\;year(thousands\\$)\\]\n\n\n\nCategory\nName\nAmount\n\n\n\n\nCashflow from operations\n\n$835,860\n\n\n+\nNet income\n474378\n\n\n+\nIncrease in accumulated depreciation\n264088\n\n\n+\nDecrease in account receivable\n15351\n\n\n-\nIncrease in other current liabilities\n114596\n\n\n-\nIncrease in inventories\n15117\n\n\n-\nIncrease in Prepayments\n16776\n\n\n-\nDecrease in account payable\n660\n\n\nCashflow from investing\n\n($1,143,355)\n\n\n-\nIncrease in property, plant, equipment\n1134644\n\n\n-\nIncreasing in other non-operating assets\n8711\n\n\nCashflow from financing\n\n$347,803\n\n\n+\nIncreasing in long-term debt\n244285\n\n\n+\nIncreasing in common stock\n96991\n\n\n+\nIncreasing in non-operating liabilities\n140026\n\n\n-\nPayment of dividends\n133499\n\n\nNet Change in Cash\n\n$40,308\n\n\nCash, beginning of year\n\n$378,511\n\n\nCash, end of year\n\n$418,819\n\n\n\n\nAnswer\n\\[Market\\;Star\\] \\[Statement\\;of\\;Cash\\;Flow\\;for\\;2011\\sim 2013(millions\\$)\\]\n\n\n\nCategory\nName\n2013\n2012\n2011\n\n\n\n\nCashflow from operations\n\n$685m\n$972m\n$506m\n\n\n+\nNet income\n499\n363\n279\n\n\n+\nIncrease in depreciation and amortizaion\n226\n196\n279\n\n\n+\nIncrease in account payable\n277\n786\n330\n\n\n-\nIncrease in account receivable\n514\n648\n238\n\n\n-\nIncrease in other current liabilities\n420\n278\n70\n\n\n-\nIncrease in inventories\n98\n13\n35\n\n\n-\nIncrease in Prepayments\n125\n(10)\n64\n\n\nCashflow from investing\n\n($1,035)\n($773)\n($584)\n\n\n-\nIncrease in property, plant, equipment\n150\n130\n115\n\n\n-\nIncrease in investments in securities\n885\n643\n469\n\n\nCashflow from financing\n\n$290\n($273)\n$162\n\n\n+\nIncreasing in long-term debt\n599\n83\n208\n\n\n+\nIncreasing in common stock\n(187)\n(252)\n42\n\n\n-\nPayment of dividends\n122\n104\n88\n\n\nNet Change in Cash\n\n($60)\n($74)\n$84",
+    "crumbs": [
+      "재무회계('24봄)",
+      "재무회계 Ch6 과제"
     ]
   },
   {
@@ -1743,6 +1809,50 @@
     "crumbs": [
       "경영통계분석('24봄)",
       "경영통계분석 과제3"
+    ]
+  },
+  {
+    "objectID": "경영통계분석_hw4.html",
+    "href": "경영통계분석_hw4.html",
+    "title": "경영통계분석 과제4",
+    "section": "",
+    "text": "Problem 1.\nAssume that the standard deviation of the heights of five-year-old boys is 3.5 inches. How many five-year-old need to be sampled if we want to be 90% sure that the population mean height is estimated within .5 inch?",
+    "crumbs": [
+      "경영통계분석('24봄)",
+      "경영통계분석 과제4"
+    ]
+  },
+  {
+    "objectID": "경영통계분석_hw4.html#problem-1.",
+    "href": "경영통계분석_hw4.html#problem-1.",
+    "title": "경영통계분석 과제4",
+    "section": "",
+    "text": "Answer\n크기가 N인 표본을 임의추출하고, 충분히 크다고 가정하겠습니다.\n모표준편차가 3.5(inch)이므로, 크기가 N인 표본평균 \\(\\bar{X}\\)은 중심극한정리(CLT)에 의해 정규분포 \\(N(\\mu,\\frac{3.5^2}{N})\\)을 따르게 될 것입니다.\n이를 이용하여 신뢰수준이 90%인 모평균의 신뢰구간을 양편으로 추정해보겠습니다.\n\\[P(z_{0.95}=-z_{0.05}&lt;\\frac{\\bar{X}-\\mu}{3.5/\\sqrt{N}}&lt;z_{0.05})=0.9\\Rightarrow P(\\bar{X}-z_{0.05}\\frac{3.5}{\\sqrt{N}}&lt;\\mu&lt;\\bar{X}+z_{0.05}\\frac{3.5}{\\sqrt{N}})=0.9\\]\n여기서, 모평균을 0.5inch 이내로 추정하는 것의 의미는, 표본오차가 0.5이내, 즉 \\(z_{0.05}\\frac{3.5}{\\sqrt{N}}&lt;0.5\\)라는 뜻입니다.\n\\(z_{0.05}\\approx 1.65\\)이므로, 이를 정리하면 \\(1.65\\times 7&lt;\\sqrt{N}\\Rightarrow 133.4025&lt;N\\)\n즉, 표본의 수가 134명 이상이라면 90% 신뢰구간을 0.5inch 오차 이내로 추정할 수 있습니다.\n또한, 이는 충분히 큰 표본이므로 앞서 CLT를 이용하는 것에 위배되지 않습니다.",
+    "crumbs": [
+      "경영통계분석('24봄)",
+      "경영통계분석 과제4"
+    ]
+  },
+  {
+    "objectID": "경영통계분석_hw4.html#problem-2.",
+    "href": "경영통계분석_hw4.html#problem-2.",
+    "title": "경영통계분석 과제4",
+    "section": "Problem 2.",
+    "text": "Problem 2.\nAn employee of an on-campus copy center wants to determine the mean number of copies before a cartridge needs to be replaced. She records the life length in thousands of copies for 43 cartridges and obtains \\(n=43,\\bar{x}=8.12, s=1.78\\) thousand copies Obtain a 90% confidence interval for the population mean, µ , number of copies in thousands before a cartridge should be replaced.\n\nAnswer\n먼저, 43개의 샘플이 충분히 크다고 생각하고 시작하겠습니다.\nCLT에 따라 표본평균 \\(\\bar{X}\\sim N(\\mu,\\sigma/\\sqrt{43})\\)이며, 표본분산 \\(\\frac{42\\times s^2}{\\sigma^2}\\sim \\chi^2(42)\\)입니다.\n이를 정리하면 \\(\\frac{\\bar{X}-\\mu}{s/\\sqrt{43}}\\sim t(42)\\)가 되는데, 표본의 크기가 충분히 크므로 \\(t(n-1)\\rightarrow N(0,1)\\)로 근사할 수 있습니다.\n이제, 이를 이용하여 모평균의 90% 신뢰구간을 추정해보겠습니다.\n\\[P(\\mu\\in(\\bar{X}\\pm z_{0.05}\\frac{s}{\\sqrt{43}}))=0.90\\Rightarrow P(\\mu\\in(7.672,8.568))=0.90\\]\n즉, 신뢰구간은 (7.672, 8.568)입니다.",
+    "crumbs": [
+      "경영통계분석('24봄)",
+      "경영통계분석 과제4"
+    ]
+  },
+  {
+    "objectID": "경영통계분석_hw4.html#problem-3.",
+    "href": "경영통계분석_hw4.html#problem-3.",
+    "title": "경영통계분석 과제4",
+    "section": "Problem 3.",
+    "text": "Problem 3.\nData on the average weekly earnings were obtained from a survey of 50 nonsupervisory production workers in the mining industry. The sample mean and standard deviation were found to be $630 and $35, respectively.\n\nEstimate the true mean weekly earnings and determine the 95% error margin.\nConstruct a 95% confidence interval for the true mean weekly earnings\n\n\nAnswer\n먼저, 표본평균 \\(\\bar{X}\\)의 성질에 따라 \\(E(\\bar{X})=\\mu,\\;\\bar{X}\\rightarrow^p \\mu\\)이므로 \\(\\bar{X}\\)는 모평균에 대한 불편(unbiased) 및 일치(consistent)추정량입니다.\n따라서 모평균의 estimator로 표본평균을 선정하고, 모평균을 $630으로 추정하겠습니다.\n한편, 표본의 수가 50으로 충분히 크므로 앞서 이용한 논리를 그대로 준용하여 \\(\\frac{\\bar{X}-\\mu}{s/\\sqrt{50}}\\sim t(49)\\approx N(0,1)\\)라고 할 수 있습니다.\n따라서 95%의 error margin은 \\(z_{0.05}\\frac{s}{\\sqrt{50}}=8.167\\)입니다.\n마지막으로, 95%의 신뢰수준으로 추정한 모평균의 신뢰구간은 아래와 같습니다.\n\\[P(\\bar{X}-z_{0.025}\\frac{s}{\\sqrt{50}}&lt;\\mu&lt;\\bar{X}-z_{0.025}\\frac{s}{\\sqrt{50}})\\Rightarrow Confidence\\;interval\\;is\\;(620.299,639.702)\\]",
+    "crumbs": [
+      "경영통계분석('24봄)",
+      "경영통계분석 과제4"
     ]
   }
 ]
