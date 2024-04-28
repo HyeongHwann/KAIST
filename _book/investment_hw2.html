@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -477,7 +477,7 @@ window.Quarto = {
 <section id="answer" class="level2">
 <h2 class="anchored" data-anchor-id="answer">Answer</h2>
 <p><strong><em>(a)</em></strong></p>
-<p>저는 <strong><em>CME group(CME), ICE(ICE), Nasdaq(NDAQ)</em></strong> 세가지 종목을 선정하였습니다.</p>
+<p>저는 <strong><em>CME group(CME), ICE(ICE), Nasdaq(NDAQ)</em></strong>K 세가지 종목을 선정하였습니다.</p>
 <p>선정 배경으로는,</p>
 <ol type="1">
 <li>제가 거래소 산업에 관심이 많고,</li>
@@ -488,8 +488,8 @@ window.Quarto = {
 <pre><code>기간 : 직전 10년(2014.4 ~ 2024.3)
 출처 : [Yahoo Finance](https://finance.yahoo.com/)
 산출방법 :
-    (월수익률) 지난달 말 대비 월말 가격의 로그수익률
-    (월초과수익률) 월수익률 - 월말 continuous conpounding FFR/12
+    (월수익률) 지난달 말 대비 월말 수익률
+    (월초과수익률) 월수익률 - 월말FFR/12
     (월분산) 월/월초과수익률의 표본표준편차
     (평균수익률) 월/월초과수익률을 산술평균하여 연환산 (x12)
     (평균분산) 월분산을 산술평균하여 연환산 (x12)</code></pre>
@@ -518,64 +518,61 @@ window.Quarto = {
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month=</span><span class="fu">substr</span>(day,<span class="dv">1</span>,<span class="dv">6</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(day<span class="sc">&gt;=</span>strt_dd,day<span class="sc">&lt;=</span>end_dd) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ffr <span class="sc">%&gt;%</span> </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">ffr=</span>FEDFUNDS,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">ffr=</span>FEDFUNDS<span class="sc">/</span><span class="dv">100</span>,</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">month=</span><span class="fu">substr</span>(<span class="fu">gsub</span>(<span class="st">"-"</span>,<span class="st">""</span>,<span class="fu">as.character</span>(DATE)),<span class="dv">1</span>,<span class="dv">6</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(month,ffr)) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year,month,day,cme,ndaq,ice,spx,ffr,Date)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># using monthly log return and continuous compound rate</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> raw_data <span class="sc">%&gt;%</span> </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ffr=</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">+</span>ffr<span class="sc">/</span><span class="dv">100</span>)))</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>monthly_raw <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>monthly_raw <span class="ot">&lt;-</span> raw_data <span class="sc">%&gt;%</span> </span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,month) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(day <span class="sc">%&gt;%</span> <span class="fu">desc</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(.,<span class="fu">c</span>(<span class="st">"cme"</span>,<span class="st">"ndaq"</span>,<span class="st">"ice"</span>,<span class="st">"spx"</span>),</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"name"</span>,<span class="at">values_to =</span> <span class="st">"price"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name,year,month) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span><span class="fu">log</span>(price)<span class="sc">-</span><span class="fu">log</span>(<span class="fu">lag</span>(price))) <span class="sc">%&gt;%</span>  <span class="co"># monthly log return</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">excess_return=</span>return<span class="sc">-</span>ffr<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">12</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.integer</span>(month)<span class="sc">&gt;=</span><span class="dv">201404</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate arithmatic mean&amp;var and var-cov matrix of excess return of stocks</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>monthly_stat <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>monthly_stat <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_excess=</span><span class="fu">mean</span>(excess_return)<span class="sc">*</span><span class="dv">12</span>,</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_excess=</span><span class="fu">sd</span>(excess_return)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">12</span>,</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_return=</span><span class="fu">mean</span>(return)<span class="sc">*</span><span class="dv">12</span>,</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_return=</span><span class="fu">sd</span>(return)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">12</span>,</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_rf=</span><span class="fu">mean</span>(ffr)) <span class="co"># Annualized</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Cov matrix</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>variance_matrix <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,name,excess_return) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"excess_return"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cme,ice,ndaq,spx) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">var</span>()</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Corr matrix</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,name,excess_return) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"excess_return"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cme,ice,ndaq,spx) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># using monthly return</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>monthly_raw <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>monthly_raw <span class="ot">&lt;-</span> raw_data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,month) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(day <span class="sc">%&gt;%</span> <span class="fu">desc</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(.,<span class="fu">c</span>(<span class="st">"cme"</span>,<span class="st">"ndaq"</span>,<span class="st">"ice"</span>,<span class="st">"spx"</span>),</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"name"</span>,<span class="at">values_to =</span> <span class="st">"price"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name,year,month) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>price<span class="sc">/</span><span class="fu">lag</span>(price)<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span>  <span class="co"># monthly return</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">excess_return=</span>return<span class="sc">-</span>ffr<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">12</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.integer</span>(month)<span class="sc">&gt;=</span><span class="dv">201404</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate arithmatic mean&amp;var and var-cov matrix of excess return of stocks</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>monthly_stat <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>monthly_stat <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_excess=</span><span class="fu">mean</span>(excess_return)<span class="sc">*</span><span class="dv">12</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_excess=</span><span class="fu">sd</span>(excess_return)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">12</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_return=</span><span class="fu">mean</span>(return)<span class="sc">*</span><span class="dv">12</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_return=</span><span class="fu">sd</span>(return)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">12</span>,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_rf=</span><span class="fu">mean</span>(ffr)) <span class="co"># Annualized</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Cov matrix</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>variance_matrix <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,name,excess_return) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"excess_return"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cme,ice,ndaq,spx) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">var</span>()</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Corr matrix</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,name,excess_return) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"excess_return"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cme,ice,ndaq,spx) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>위 방법을 기준으로 산출한 각 주식의 평균초과수익률(연환산) 및 공분산행렬은 아래와 같습니다.</p>
-<p><strong>CME 13.3%, ICE 12.4%, Nasdaq 16.6%</strong></p>
+<p><strong>Excess return : CME 15.0%, ICE 14.4%, Nasdaq 18.8%</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>monthly_stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
   name  avg_excess var_excess avg_return var_return avg_rf
   &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
-1 cme       0.133      0.0332      0.147     0.0332 0.0139
-2 ice       0.124      0.0402      0.137     0.0403 0.0139
-3 ndaq      0.166      0.0410      0.180     0.0408 0.0139
-4 spx       0.0893     0.0230      0.103     0.0230 0.0139</code></pre>
+1 cme        0.150     0.0340      0.165     0.0340 0.0141
+2 ice        0.144     0.0414      0.158     0.0415 0.0141
+3 ndaq       0.188     0.0415      0.202     0.0413 0.0141
+4 spx        0.101     0.0229      0.115     0.0229 0.0141</code></pre>
 </div>
 </div>
 <p><strong>Variance-Covariance Matrix of three stocks&amp;Benchmark index</strong></p>
@@ -583,10 +580,10 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>variance_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              cme         ice        ndaq          spx
-cme  0.0027651960 0.001728669 0.001145571 0.0008280002
-ice  0.0017286687 0.003352164 0.002121414 0.0016542584
-ndaq 0.0011455711 0.002121414 0.003414985 0.0016150778
-spx  0.0008280002 0.001654258 0.001615078 0.0019131261</code></pre>
+cme  0.0028310476 0.001767299 0.001138796 0.0008194417
+ice  0.0017672988 0.003452184 0.002149990 0.0016652315
+ndaq 0.0011387956 0.002149990 0.003456322 0.0016308630
+spx  0.0008194417 0.001665231 0.001630863 0.0019071007</code></pre>
 </div>
 </div>
 <p><strong>Correlation Matrix of three stocks&amp;Benchmark index</strong></p>
@@ -594,52 +591,60 @@ spx  0.0008280002 0.001654258 0.001615078 0.0019131261</code></pre>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cor_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           cme       ice      ndaq       spx
-cme  1.0000000 0.5677880 0.3727903 0.3599944
-ice  0.5677880 1.0000000 0.6270012 0.6532342
-ndaq 0.3727903 0.6270012 1.0000000 0.6318693
-spx  0.3599944 0.6532342 0.6318693 1.0000000</code></pre>
+cme  1.0000000 0.5653136 0.3640534 0.3526612
+ice  0.5653136 1.0000000 0.6224185 0.6489942
+ndaq 0.3640534 0.6224185 1.0000000 0.6352191
+spx  0.3526612 0.6489942 0.6352191 1.0000000</code></pre>
 </div>
 </div>
 <p><strong><em>(c)</em></strong></p>
 <p>각 주식의 기대수익률과 미래변동성이 과거실현값과 동일하다고 가정하겠습니다.</p>
 <p>공매도는 없다고 가정하였으므로 각 주식의 비중이 양수가 되도록 설정하고, 먼저 두개의 주식으로 구성된 포트폴리오의 efficient frontier를 각각 구하도록 하겠습니다.</p>
-<p>그런다음, 각</p>
+<p>그 다음, 하나의 주식과 다른 두 주식의 포트폴리오를 재결합하면 새로운 포트폴리오를 구성할 수 있으며, 이를 반복하여 efficient frontier를 도식화할 수 있습니다.</p>
+<p>아래 코드에서는 ICE의 구성비중을 5%, 10%, … , 95%로 고정하고 CME-Nasdaq 포트폴리오와 재결합을 반복하여 efficient frontier를 구현하였습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Portfolio return/vol of variance combinations three stocks</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>portfolio <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>portfolio <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.001</span>),<span class="at">ice=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.001</span>),<span class="at">ndaq=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.002</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.001</span>),<span class="at">ice=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.3</span>,<span class="fl">0.0006</span>),<span class="at">ndaq=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fl">0.2</span>,<span class="sc">-</span><span class="fl">0.0016</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.7</span>,<span class="fl">0.001</span>),<span class="at">ice=</span><span class="fl">0.3</span>,<span class="at">ndaq=</span><span class="fu">seq</span>(<span class="fl">0.7</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.001</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.001</span>),<span class="at">ice=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.001</span>),<span class="at">ndaq=</span><span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.001</span>),<span class="at">ice=</span><span class="dv">0</span>,<span class="at">ndaq=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.001</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="dv">0</span>,<span class="at">ice=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.001</span>),<span class="at">ndaq=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.001</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>cme<span class="sc">*</span>monthly_stat<span class="sc">$</span>avg_return[<span class="dv">1</span>]</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>         <span class="sc">+</span>ice<span class="sc">*</span>monthly_stat<span class="sc">$</span>avg_return[<span class="dv">2</span>]</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="sc">+</span>ndaq<span class="sc">*</span>monthly_stat<span class="sc">$</span>avg_return[<span class="dv">3</span>],</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">vol=</span><span class="fu">sqrt</span>(cme<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>monthly_stat<span class="sc">$</span>var_return[<span class="dv">1</span>]</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span>ice<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>monthly_stat<span class="sc">$</span>var_return[<span class="dv">2</span>]</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span>ndaq<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>monthly_stat<span class="sc">$</span>var_return[<span class="dv">3</span>]</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>cme<span class="sc">*</span>ice<span class="sc">*</span>variance_matrix[<span class="dv">2</span>]</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>cme<span class="sc">*</span>ndaq<span class="sc">*</span>variance_matrix[<span class="dv">3</span>]</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>ndaq<span class="sc">*</span>ice<span class="sc">*</span>variance_matrix[<span class="dv">7</span>])) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sharpe=</span>(return<span class="sc">-</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>])<span class="sc">/</span>vol)</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plot_portfolio <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>portfolio,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>vol,<span class="at">y=</span>return))<span class="sc">+</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ndaq<span class="sc">==</span><span class="dv">0</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"red"</span>)<span class="sc">+</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ice<span class="sc">==</span><span class="dv">0</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"blue"</span>)<span class="sc">+</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">==</span><span class="dv">0</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"green"</span>)<span class="sc">+</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.08</span>,<span class="fl">0.22</span>))<span class="sc">+</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.13</span>,<span class="fl">0.2</span>))<span class="sc">+</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Invest Opportunity of three stocks"</span>,<span class="at">x=</span><span class="st">"standard deviation"</span>,<span class="at">y=</span><span class="st">"expected return"</span>) <span class="sc">+</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.18</span>,<span class="at">y=</span><span class="fl">0.155</span>,<span class="at">label=</span><span class="st">"CME"</span>)<span class="sc">+</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.205</span>,<span class="at">y=</span><span class="fl">0.184</span>,<span class="at">label=</span><span class="st">"Nasdaq"</span>)<span class="sc">+</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.2</span>,<span class="at">y=</span><span class="fl">0.142</span>,<span class="at">label=</span><span class="st">"ICE"</span>)<span class="sc">+</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>plot_combination <span class="ot">&lt;-</span> plot_portfolio <span class="sc">+</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ndaq<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">!=</span><span class="fl">0.3</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">alpha=</span><span class="fl">0.3</span>)</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>plot_combination</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>portfolio <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.002</span>),<span class="at">ice=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.002</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.002</span>),<span class="at">ice=</span><span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="dv">0</span>,<span class="at">ice=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.002</span>)))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fl">0.05</span>,<span class="fl">0.95</span>,<span class="fl">0.05</span>)){portfolio <span class="ot">&lt;-</span> portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span><span class="sc">-</span>i,<span class="fl">0.005</span>),<span class="at">ice=</span>i))}</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fl">0.25</span>,<span class="fl">0.30</span>,<span class="fl">0.01</span>)){portfolio <span class="ot">&lt;-</span> portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">union_all</span>(.,<span class="fu">tibble</span>(<span class="at">cme=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span><span class="sc">-</span>i,<span class="fl">0.005</span>),<span class="at">ice=</span>i))}</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>portfolio <span class="ot">&lt;-</span> portfolio <span class="sc">%&gt;%</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ndaq=</span><span class="dv">1</span><span class="sc">-</span>cme<span class="sc">-</span>ice) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>cme<span class="sc">*</span>monthly_stat<span class="sc">$</span>avg_return[<span class="dv">1</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>         <span class="sc">+</span>ice<span class="sc">*</span>monthly_stat<span class="sc">$</span>avg_return[<span class="dv">2</span>]</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>         <span class="sc">+</span>ndaq<span class="sc">*</span>monthly_stat<span class="sc">$</span>avg_return[<span class="dv">3</span>],</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">vol=</span><span class="fu">sqrt</span>(cme<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>monthly_stat<span class="sc">$</span>var_return[<span class="dv">1</span>]</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span>ice<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>monthly_stat<span class="sc">$</span>var_return[<span class="dv">2</span>]</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span>ndaq<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>monthly_stat<span class="sc">$</span>var_return[<span class="dv">3</span>]</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>cme<span class="sc">*</span>ice<span class="sc">*</span>variance_matrix[<span class="dv">2</span>]</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>cme<span class="sc">*</span>ndaq<span class="sc">*</span>variance_matrix[<span class="dv">3</span>]</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>ndaq<span class="sc">*</span>ice<span class="sc">*</span>variance_matrix[<span class="dv">7</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sharpe=</span>(return<span class="sc">-</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>])<span class="sc">/</span>vol)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>plot_portfolio <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>portfolio,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>vol,<span class="at">y=</span>return))<span class="sc">+</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ndaq<span class="sc">==</span><span class="dv">0</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ice<span class="sc">==</span><span class="dv">0</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"blue"</span>)<span class="sc">+</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">==</span><span class="dv">0</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"green"</span>)<span class="sc">+</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.08</span>,<span class="fl">0.22</span>))<span class="sc">+</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.15</span>,<span class="fl">0.21</span>))<span class="sc">+</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Invest Opportunity of three stocks"</span>,</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"standard deviation"</span>,<span class="at">y=</span><span class="st">"expected return"</span>) <span class="sc">+</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.182</span>,<span class="at">y=</span><span class="fl">0.17</span>,<span class="at">label=</span><span class="st">"CME"</span>)<span class="sc">+</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.202</span>,<span class="at">y=</span><span class="fl">0.205</span>,<span class="at">label=</span><span class="st">"Nasdaq"</span>)<span class="sc">+</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.202</span>,<span class="at">y=</span><span class="fl">0.162</span>,<span class="at">label=</span><span class="st">"ICE"</span>)<span class="sc">+</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>plot_combination <span class="ot">&lt;-</span> plot_portfolio <span class="sc">+</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ndaq<span class="sc">!=</span><span class="dv">0</span>),<span class="at">size=</span><span class="dv">1</span>,</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">color=</span><span class="st">"black"</span>,<span class="at">alpha=</span><span class="fl">0.1</span>)</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>plot_combination</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -653,19 +658,23 @@ spx  0.3599944 0.6532342 0.6318693 1.0000000</code></pre>
 <p>접선의 기울기는 포트폴리오의 초과수익률을 변동성으로 나눈 값으로 Sharpe r/o가 되므로, 이 접선이 CAL에 해당합니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sharpe<span class="ot">=</span><span class="fu">max</span>(portfolio<span class="sc">$</span>sharpe)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tangent <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">vol=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tangent <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">vol=</span><span class="fu">seq</span>(<span class="fl">0.08</span>,<span class="fl">0.17</span>,<span class="fl">0.01</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>]<span class="sc">+</span>sharpe<span class="sc">*</span>vol)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plot_tangent <span class="ot">&lt;-</span> plot_combination<span class="sc">+</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>tangent)<span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.125</span>,<span class="at">y=</span><span class="fl">0.19</span>,<span class="at">label=</span><span class="st">"CAL, y=1.2094x+0.0139"</span>)<span class="sc">+</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.125</span>,<span class="at">y=</span><span class="fl">0.183</span>,<span class="at">label=</span><span class="st">"sharpe r/o=1.2094"</span>)<span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.112</span>,<span class="at">y=</span><span class="fl">0.162</span>,<span class="at">label=</span><span class="st">"Tangent p/f"</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plot_tangent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.04</span>,<span class="fl">0.26</span>))<span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.11</span>,<span class="fl">0.25</span>))<span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.125</span>,<span class="at">y=</span><span class="fl">0.23</span>,<span class="at">label=</span><span class="st">"CAL, y=1.3667x+0.0141"</span>)<span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.125</span>,<span class="at">y=</span><span class="fl">0.22</span>,<span class="at">label=</span><span class="st">"sharpe r/o=1.3667"</span>)<span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.1</span>,<span class="at">y=</span><span class="fl">0.18</span>,<span class="at">label=</span><span class="st">"Tangent p/f"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 95 rows containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
+<pre><code>Scale for x is already present.
+Adding another scale for x, which will replace the existing scale.
+Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot_tangent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -676,37 +685,49 @@ spx  0.3599944 0.6532342 0.6318693 1.0000000</code></pre>
 </div>
 <p>이 때, Tangent p/f의 기대수익률/변동성/구성비율은 아래와 같습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>portfolio <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(sharpe <span class="sc">%&gt;%</span> <span class="fu">desc</span>()) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>portfolio <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(sharpe <span class="sc">%&gt;%</span> <span class="fu">desc</span>()) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
     cme   ice  ndaq return   vol sharpe
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1  0.39 0.234 0.376  0.157 0.119   1.21</code></pre>
+1  0.36  0.27  0.37  0.177 0.119   1.37</code></pre>
 </div>
 </div>
 <p><strong><em>(e)</em></strong></p>
-<p>만약, 각 주식의 비중이 최소 0.3이 되어야한다면 (d)의 Tangent p/f 구성이 불가능합니다. ICE의 최적비중은 23.4%이기 때문입니다.</p>
-<p>따라서, 새로운 최적 포트폴리오는 ICE=0.3으로 고정하고 산출할 수 있으며, 새로운 efficient frontier는 아래와 같습니다.</p>
+<p>Tangent p/f에서 CME, Nasdaq의 비중은 각각 36%, 37%로 이미 30%를 초과하였습니다. 따라서 30%를 초과보유할 주식을 선정할 때 두 주식을 선정한다면 최적포트폴리오는 (d)의 Tangent p/f와 동일할 것 입니다.</p>
+<p>한편, ICE를 선정한다면 (d)의 Tangent p/f 구성이 불가능합니다. 이 경우 새로운 efficient frontier는 아래와 같이 도식화할 수 있으며, 새로운 최적포트폴리오는 ICE의 비중이 정확히 30%일 때 결정됩니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix ice=0.3</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>portfolio2 <span class="ot">&lt;-</span> portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ice<span class="sc">==</span><span class="fl">0.3</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sharpe2<span class="ot">=</span><span class="fu">max</span>(portfolio2<span class="sc">$</span>sharpe)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>tangent2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">vol=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>]<span class="sc">+</span>sharpe2<span class="sc">*</span>vol)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plot_tangent2 <span class="ot">&lt;-</span> plot_portfolio <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ndaq<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">==</span><span class="fl">0.3</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ndaq<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">!=</span><span class="fl">0.3</span>),<span class="at">size=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">alpha=</span><span class="fl">0.1</span>)<span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>tangent2)<span class="sc">+</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.125</span>,<span class="at">y=</span><span class="fl">0.19</span>,<span class="at">label=</span><span class="st">"CAL, y=1.2085x+0.0139"</span>)<span class="sc">+</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.125</span>,<span class="at">y=</span><span class="fl">0.183</span>,<span class="at">label=</span><span class="st">"sharpe r/o=1.2085"</span>)<span class="sc">+</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.112</span>,<span class="at">y=</span><span class="fl">0.162</span>,<span class="at">label=</span><span class="st">"Tangent p/f"</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plot_tangent2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 95 rows containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set ice&gt;=0.3</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>portfolio2 <span class="ot">&lt;-</span> portfolio <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ice<span class="sc">&gt;=</span><span class="fl">0.3</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sharpe2<span class="ot">=</span><span class="fu">max</span>(portfolio2<span class="sc">$</span>sharpe)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>tangent2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">vol=</span><span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="fl">0.14</span>,<span class="fl">0.01</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>]<span class="sc">+</span>sharpe2<span class="sc">*</span>vol)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>portfolio2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(sharpe))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,905 × 6
+     cme   ice  ndaq return   vol sharpe
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1 0.34    0.3 0.36   0.176 0.119   1.36
+ 2 0.34    0.3 0.36   0.176 0.119   1.36
+ 3 0.345   0.3 0.355  0.176 0.119   1.36
+ 4 0.345   0.3 0.355  0.176 0.119   1.36
+ 5 0.335   0.3 0.365  0.176 0.119   1.36
+ 6 0.335   0.3 0.365  0.176 0.119   1.36
+ 7 0.35    0.3 0.35   0.176 0.119   1.36
+ 8 0.35    0.3 0.35   0.176 0.119   1.36
+ 9 0.33    0.3 0.37   0.176 0.119   1.36
+10 0.33    0.3 0.37   0.176 0.119   1.36
+# ℹ 1,895 more rows</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plot_tangent2 <span class="ot">&lt;-</span> plot_portfolio <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>portfolio2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cme<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ice<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>ndaq<span class="sc">!=</span><span class="dv">0</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="dv">1</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">alpha=</span><span class="fl">0.2</span>)<span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>tangent2)<span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.117</span>,<span class="at">y=</span><span class="fl">0.2</span>,<span class="at">label=</span><span class="st">"CAL, y=1.3639x+0.0141"</span>)<span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.117</span>,<span class="at">y=</span><span class="fl">0.193</span>,<span class="at">label=</span><span class="st">"sharpe r/o=1.3639"</span>)<span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.11</span>,<span class="at">y=</span><span class="fl">0.18</span>,<span class="at">label=</span><span class="st">"Optimal p/f"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plot_tangent2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -715,65 +736,91 @@ spx  0.3599944 0.6532342 0.6318693 1.0000000</code></pre>
 </div>
 </div>
 </div>
-<p>새로운 Tangent p/f의 기대수익률/변동성/구성비율은 아래와 같습니다.</p>
+<p><strong>Optimal p/f의 기대수익률/변동성/구성비율</strong>은 아래와 같습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>optimal <span class="ot">&lt;-</span> portfolio2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(sharpe <span class="sc">%&gt;%</span> <span class="fu">desc</span>()) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>optimal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>optimal <span class="ot">&lt;-</span> portfolio2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(sharpe <span class="sc">%&gt;%</span> <span class="fu">desc</span>()) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>optimal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
     cme   ice  ndaq return   vol sharpe
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1 0.344   0.3 0.356  0.156 0.118   1.21</code></pre>
+1  0.34   0.3  0.36  0.176 0.119   1.36</code></pre>
 </div>
 </div>
 <p><strong><em>(f)</em></strong></p>
-<p>먼저, 포트폴리오의 로그수익률이 정규분포를 따른다면 표준정규분포표를 참조하여 Value at Risk를 다음과 같이 산출할 수 있습니다.</p>
-<p><span class="math display">\[5\%\;VaR=E(r_p)-1.65\sigma_p=0.156-1.65\times 0.118=-3.80\%\]</span></p>
+<p>먼저, 포트폴리오의 연환산수익률이 정규분포를 따른다면 표준정규분포표를 참조하여 <strong>Value at Risk를 다음과 같이 산출</strong>할 수 있습니다.</p>
+<p><span class="math display">\[5\%\;VaR=E(r_p)-1.65\sigma_p=0.176-1.65\times 0.119=-1.99\%\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>VaR<span class="ot">=</span>optimal<span class="sc">$</span>return<span class="fl">-1.65</span><span class="sc">*</span>optimal<span class="sc">$</span>vol; VaR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>VaR<span class="ot">=</span>optimal<span class="sc">$</span>return<span class="fl">-1.65</span><span class="sc">*</span>optimal<span class="sc">$</span>vol; VaR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.03802994</code></pre>
+<pre><code>[1] -0.01990571</code></pre>
 </div>
 </div>
-<p>만약 수익률의 분포가 정규분포가 아니라면, Historical VaR 및 ES(Expected Shortfall)을 산출할 수 있습니다. 이를 데이터의 참조기간인 과거 10년간 최적포트폴리오의 월수익률이 필요합니다.</p>
-<p>위의 최적포트폴리오는 <strong>CME 34.4%, ICE 30%, Nasdaq 35.6%로 구성된 포트폴리오</strong>이므로, 거래비용 등을 무시하고 매월말 포트폴리오의 구성비율을 조정한다고 가정하고 포트폴리오의 명목금액을 <span class="math inline">\(P_t\)</span>, 각 주식의 <span class="math inline">\((t,t+1)\)</span> 한달간 로그수익률을 <span class="math inline">\(r_{t,k}\)</span>라고 한다면 <span class="math inline">\((t,t+1)\)</span>간 포트폴리오의 수익률 <span class="math inline">\(r_t\)</span>는 다음과 같습니다.</p>
-<p><span class="math display">\[P_{t+1}=0.344\times P_t\times e^{r_{t,cme}}+0.3\times P_t\times e^{r_{t,ice}}+0.344\times P_t\times e^{r_{t,ndaq}}\]</span></p>
-<p><span class="math display">\[\Rightarrow 1+r_t=\frac{P_{t+1}}{P_t}=0.344\times e^{r_{t,cme}}+0.3\times e^{r_{t,ice}}+0.344\times e^{r_{t,ndaq}}\]</span></p>
+<p>만약 수익률의 분포가 정규분포가 아니라면, Historical VaR 및 ES(Expected Shortfall)을 산출할 수 있습니다. 이를 데이터의 참조기간인 <strong>과거 10년간 최적포트폴리오의 월수익률이 필요</strong>합니다.</p>
+<p>위의 최적포트폴리오는 <strong>CME 34%, ICE 30%, Nasdaq 36%로 구성된 포트폴리오</strong>이므로, 거래비용 등을 무시하고 매월말 포트폴리오의 구성비율을 조정한다고 가정하고 포트폴리오의 명목금액을 <span class="math inline">\(P_t\)</span>, 각 주식의 <span class="math inline">\((t,t+1)\)</span> 월수익률을 <span class="math inline">\(r_{t,k}\)</span>라고 한다면 <span class="math inline">\((t,t+1)\)</span>간 포트폴리오의 월수익률 <span class="math inline">\(r_t\)</span>는 다음과 같습니다.</p>
+<p><span class="math display">\[P_{t+1}=0.34\times P_t\times (1+r_{t,cme})+0.3\times P_t\times (1+r_{t,ice})+0.36\times P_t\times (1+r_{t,ndaq})\]</span></p>
+<p><span class="math display">\[\Rightarrow 1+r_t=\frac{P_{t+1}}{P_t}=0.34\times (1+r_{t,cme})+0.3\times (1+r_{t,ice})+0.36\times (1+r_{t,ndaq})\]</span></p>
 <p>이를 적용하면 과거 10년간 최적포트폴리오의 월수익률 120개를 얻을 수 있습니다.</p>
-<p>이를 오름차순으로 정렬하면 Historical 5% VaR은 6번째 관측값이며, 5% ES는 6개의 관측값의 평균으로 산출할 수 있습니다. 이는 월수익률 기반 VaR 및 ES이므로 <span class="math inline">\(\sqrt{12}\)</span>를 곱하여 연환산하도록 하겠습니다.</p>
+<p>이를 오름차순으로 정렬하면 <strong>Historical 5% VaR은 6번째 관측값이며, 5% ES는 6개의 관측값의 평균</strong>으로 산출할 수 있습니다. 이는 <strong>월수익률 기반 VaR 및 ES이므로 <span class="math inline">\(\sqrt{12}\)</span>를 곱하여 연환산</strong>하도록 하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>optimal_monthly <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>optimal_monthly <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,name,return) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"return"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pf_return=</span>optimal<span class="sc">$</span>cme<span class="sc">*</span><span class="fu">exp</span>(cme)<span class="sc">+</span>optimal<span class="sc">$</span>ice<span class="sc">*</span><span class="fu">exp</span>(ice)<span class="sc">+</span>optimal<span class="sc">$</span>ndaq<span class="sc">*</span><span class="fu">exp</span>(ndaq)<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,cme,ice,ndaq,pf_return) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pf_return) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>optimal_monthly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>optimal_monthly <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>optimal_monthly <span class="ot">&lt;-</span> monthly_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,name,return) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"return"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pf_return=</span>optimal<span class="sc">$</span>cme<span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span>cme)<span class="sc">+</span>optimal<span class="sc">$</span>ice<span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span>ice)<span class="sc">+</span>optimal<span class="sc">$</span>ndaq<span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span>ndaq)<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month,cme,ice,ndaq,pf_return) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pf_return) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>optimal_monthly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   month       cme     ice    ndaq pf_return
   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-1 202204 -0.0811  -0.132  -0.124    -0.105 
-2 202002 -0.0880  -0.111  -0.127    -0.103 
-3 202003 -0.136   -0.0961 -0.0723   -0.0960
-4 202209 -0.0942  -0.106  -0.0458   -0.0771
-5 202201  0.00454 -0.0768 -0.159    -0.0728
-6 202205 -0.0982  -0.123  -0.0135   -0.0717</code></pre>
+1 202204 -0.0779  -0.123  -0.117    -0.106 
+2 202002 -0.0842  -0.105  -0.119    -0.103 
+3 202003 -0.127   -0.0917 -0.0697   -0.0957
+4 202209 -0.0899  -0.101  -0.0448   -0.0769
+5 202201  0.00455 -0.0739 -0.147    -0.0734
+6 202205 -0.0935  -0.116  -0.0134   -0.0714</code></pre>
 </div>
 </div>
-<p>Annualized 5% VaR은 -24.84%, ES는 -30.38%입니다.</p>
-<p>정규분포 가정 하에 산출한 VaR과 큰 차이가 나는 이유는 지난 22년 Covid-19 팬데믹으로 인해 이례적으로 주가가 월 7% 이상 하락하는 급락장이 지속(Left fat tail)되었는데, 이때의 표본이 Historical VaR 산출을 지배한 반면 정규분포 근사시에는 반영되지 않아 차이가 발생하는 것으로 추정됩니다.</p>
+<p><strong>Annualized 5% VaR은 -24.78%, ES는 -30.38%입니다.</strong></p>
+<p>정규분포 가정 하에 산출한 VaR과 큰 차이가 나는 이유는 지난 22년 Covid-19 팬데믹으로 인해 이례적으로 주가가 월 7% 이상 하락하는 급락장이 지속(Left fat tail)되었는데, 이때의 outlier 표본이 Historical VaR 산출을 지배한 반면 정규분포 근사시에는 반영되지 않아 차이가 발생하는 것으로 추정됩니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>hist_VaR <span class="ot">&lt;-</span> optimal_monthly<span class="sc">$</span>pf_return[<span class="dv">6</span>]<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">12</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>hist_ES <span class="ot">&lt;-</span> <span class="fu">mean</span>(optimal_monthly<span class="sc">$</span>pf_return[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>])<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">12</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">round</span>(hist_VaR,<span class="dv">6</span>), <span class="fu">round</span>(hist_ES,<span class="dv">6</span>) , <span class="fu">round</span>(VaR,<span class="dv">6</span>), <span class="at">sep=</span><span class="st">" / "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hist_VaR <span class="ot">&lt;-</span> optimal_monthly<span class="sc">$</span>pf_return[<span class="dv">6</span>]<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">12</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>hist_ES <span class="ot">&lt;-</span> <span class="fu">mean</span>(optimal_monthly<span class="sc">$</span>pf_return[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>])<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">12</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">round</span>(hist_VaR,<span class="dv">6</span>), <span class="fu">round</span>(hist_ES,<span class="dv">6</span>) , <span class="fu">round</span>(VaR,<span class="dv">6</span>), <span class="at">sep=</span><span class="st">" / "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "-0.248389 / -0.303774 / -0.03803"</code></pre>
+<pre><code>[1] "-0.247279 / -0.303873 / -0.019906"</code></pre>
 </div>
 </div>
 <p><strong><em>(g)</em></strong></p>
+<p>위의 최적포트폴리오와 무위험자산을 이용하여 투자를 결정한다면, 최종적인 포트폴리오의 기대수익률 및 변동성은 자본배분선(<span class="math inline">\(E(r_p)=1.3639\sigma_p+0.0141\)</span>) 위에서 결정될 것입니다.</p>
+<p>이때, 무위험자산의 비중은 투자자의 위험회피정도에 따른 효용함수 <span class="math inline">\(U=E(r_p)-\frac{1}{2}A\sigma_p^2\)</span>를 최대화시키는 수준에서 결정됩니다.</p>
+<p>이에 따라 산출한 <strong>무위험자산의 비중은 모든 경우(A=2, 3.5, 5)에서 0</strong>이 됩니다. 이는 과거기간 중 제로금리 기간이 다소 길어 무위험자산의 수익률이 낮은 반면, 선정한 주식의 기대수익률은 상대적으로 높아 일어난 것으로 추정됩니다.</p>
+<p>부가적으로, 무위험자산의 비중 산식 <span class="math inline">\(r^*=1-\frac{E(r_p)-r_f}{A\sigma_p^2}\)</span>를 역산하여 <strong>위험회피정도 <span class="math inline">\(A\)</span>를 역산해보면, 약 11.48까지는 최적포트폴리오를 100% 보유하는 것이 효용을 극대화</strong>시키는 투자결정입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utility function to verify risk-free asset ratio</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>utility <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">vol=</span><span class="fu">seq</span>(optimal<span class="sc">$</span>vol,<span class="dv">0</span>,<span class="sc">-</span><span class="fl">0.0001</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">return=</span>sharpe2<span class="sc">*</span>vol<span class="sc">+</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rf_ratio=</span>(optimal<span class="sc">$</span>return<span class="sc">-</span>return)<span class="sc">/</span>(optimal<span class="sc">$</span>return<span class="sc">-</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a2=</span>return<span class="fl">-0.5</span><span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>vol<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">a3.5=</span>return<span class="fl">-0.5</span><span class="sc">*</span><span class="fl">3.5</span><span class="sc">*</span>vol<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">a5=</span>return<span class="fl">-0.5</span><span class="sc">*</span><span class="dv">5</span><span class="sc">*</span>vol<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>utility <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(a5)) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+    vol return rf_ratio    a2  a3.5    a5
+  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 0.119  0.176        0 0.162 0.151 0.141</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(optimal<span class="sc">$</span>return<span class="sc">-</span>monthly_stat<span class="sc">$</span>avg_rf[<span class="dv">1</span>])<span class="sc">/</span>optimal<span class="sc">$</span>vol<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.48027</code></pre>
+</div>
+</div>
 
 
 </section>
@@ -858,24 +905,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -910,11 +939,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

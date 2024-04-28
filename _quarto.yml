@@ -22,6 +22,7 @@ book:
         - Chapter10.qmd
         - Chapter11.qmd
         - Chapter13.qmd
+        - Chapter14.qmd
         - 24S_derivatives_hw.qmd
     - part : Python('24봄)
       chapters: 
