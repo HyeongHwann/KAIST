@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -321,6 +321,12 @@ window.Quarto = {
  <span class="menu-text">투자분석 과제1</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./investment_hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">투자분석 과제2</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -595,7 +601,7 @@ Note
 <p>만기시점까지의 현금흐름을 살펴보면,</p>
 <p><span class="math inline">\(1. 만기시점에 F_0e^{r_fT} 지출\)</span></p>
 <p><span class="math inline">\(2. 현재시점에 S_0e^{-r_fT} 지출, 만기시점에 자국통화 이자비용 S_0e^{-r_fT}(e^{rT}-1)\)</span></p>
-<p>즉, <a href="#sec-5.6con" class="quarto-xref"><span class="quarto-unresolved-ref">sec-5.6con</span></a> 과 동일한 방식을 적용하여 <span class="math inline">\(Currency,\;F_0=S_0e^{(r-r_f)T}\)</span>를 도출할 수 있습니다. 이는, 선도환 및 통화선물을 거래할 때, 기초자산의 보유비용은 자국의 무위험이자율이며 기초자산의 보유수익은 해외통화의 무위험이자율임을 뜻합니다.</p>
+<p>즉, <a href="#sec-5.6con" class="quarto-xref"><span>Continuous</span></a> 과 동일한 방식을 적용하여 <span class="math inline">\(Currency,\;F_0=S_0e^{(r-r_f)T}\)</span>를 도출할 수 있습니다. 이는, 선도환 및 통화선물을 거래할 때, 기초자산의 보유비용은 자국의 무위험이자율이며 기초자산의 보유수익은 해외통화의 무위험이자율임을 뜻합니다.</p>
 </section>
 <section id="상품선물" class="level3">
 <h3 class="anchored" data-anchor-id="상품선물">상품선물</h3>
@@ -607,7 +613,7 @@ Note
 <p>만기시점까지의 현금흐름은,</p>
 <p><span class="math inline">\(1. 만기시점에 F_0 지출\)</span></p>
 <p><span class="math inline">\(2. 현재시점에 S_0+U 지출, 만기시점에 자국통화 이자비용 (S_0+U)(e^{rT}-1)\)</span></p>
-<p>즉, <a href="#sec-5.6dis" class="quarto-xref"><span class="quarto-unresolved-ref">sec-5.6dis</span></a> 과 동일한 방식으로 <span class="math inline">\(F_0=(S_0+U)e^{rT}\)</span>를 도출할 수 있습니다. 만약 <span class="math inline">\(U\)</span>를 연속복리이자율을 적용한 <span class="math inline">\(S_0e^{uT}\)</span>로 표현한다면, <span class="math inline">\(F_0=S_0e^{(r+u)T}\)</span>라 할 수 있습니다.</p>
+<p>즉, <a href="#sec-5.6dis" class="quarto-xref"><span>Discrete</span></a> 과 동일한 방식으로 <span class="math inline">\(F_0=(S_0+U)e^{rT}\)</span>를 도출할 수 있습니다. 만약 <span class="math inline">\(U\)</span>를 연속복리이자율을 적용한 <span class="math inline">\(S_0e^{uT}\)</span>로 표현한다면, <span class="math inline">\(F_0=S_0e^{(r+u)T}\)</span>라 할 수 있습니다.</p>
 <p>추가적으로, convenience yield가 있는 상품의 경우 그 수익률을 <span class="math inline">\(y\)</span>라 한다면 최종적으로 다음과 같이 나타낼 수 있습니다.</p>
 <p><span class="math display">\[Comodity,\;F_0=S_0e^{(r+u-y)T}\]</span></p>
 </section>
@@ -615,7 +621,7 @@ Note
 <section id="실물인수도에-따른-옵션-delivery-options" class="level2">
 <h2 class="anchored" data-anchor-id="실물인수도에-따른-옵션-delivery-options">5.13 실물인수도에 따른 옵션, Delivery Options</h2>
 <p>일부의 선물계약과 선도계약은 만기시점에 실제로 기초자산과 매수대금을 주고 받는 실물인수도를 최종결제방식으로 채택합니다. 이때, 선도계약은 인수도 시점에 대한 것이 명확하게 계약시점에 정해지지만, <strong>선물계약은 일반적으로 매도자가 언제 기초자산을 인도할지에 대한 선택권</strong>을 가지고있습니다. 정해진 인수도기간 중에, 언제 인수도가 이루어지냐에 따라서 선물계약의 가치평가에 영향을 미치게 되는 것 입니다. 물론 대부분의 선물이 만기 전 반대거래로 청산이 이루어진다고는 하지만, 알아두고 갈 필요는 있습니다.</p>
-<p>위에서 살펴본 바와 같이, 일반적으로 선물가격은 <span class="math inline">\(S_0e^{rT}\)</span>로 결정되며 이는 잔존만기에 따른 증가함수입니다. 이는 <a href="#sec-costofcarry" class="quarto-xref"><span class="quarto-unresolved-ref">sec-costofcarry</span></a> 관점에서 볼 때 기초자산에 보유비용이 발생한다는 의미로, <strong>선물가격이 현물가격보다 높게 형성</strong>된다면 선물 매도자입장에서는 <strong>인수도기간 중 가능한 빨리 인수도를 할 유인</strong>이 생긴다는 것을 의미합니다.</p>
+<p>위에서 살펴본 바와 같이, 일반적으로 선물가격은 <span class="math inline">\(S_0e^{rT}\)</span>로 결정되며 이는 잔존만기에 따른 증가함수입니다. 이는 <a href="#sec-costofcarry" class="quarto-xref"><span>5.9~12 Cost of Carry 및 다양한 선도/선물가격</span></a> 관점에서 볼 때 기초자산에 보유비용이 발생한다는 의미로, <strong>선물가격이 현물가격보다 높게 형성</strong>된다면 선물 매도자입장에서는 <strong>인수도기간 중 가능한 빨리 인수도를 할 유인</strong>이 생긴다는 것을 의미합니다.</p>
 <p>반대로, <strong>선물가격이 현물가격보다 낮게 형성</strong>된다면 시장상황이 기초자산에 보유이익이 발생한다는 의미로, 선물 매도자입장에서는 <strong>가능한 늦게 인수도를 할 유인</strong>이 생긴다는 것을 의미합니다.</p>
 </section>
 <section id="선물가격과-미래-현물가격의-기대값" class="level2">
@@ -630,7 +636,7 @@ Note
 </section>
 <section id="risk-and-return" class="level3">
 <h3 class="anchored" data-anchor-id="risk-and-return">Risk and Return</h3>
-<p>최근의 접근방법은 선물가격과 현물가격의 관계를 리스크 대비 기대수익으로 설명하고 있습니다. CAPM 등에서 투자자산의 리스크가 높다면 보다 높은 기대수익률을 가지고 있어야 합니다. <a href="#sec-CAPM" class="quarto-xref"><span class="quarto-unresolved-ref">sec-CAPM</span></a></p>
+<p>최근의 접근방법은 선물가격과 현물가격의 관계를 리스크 대비 기대수익으로 설명하고 있습니다. CAPM 등에서 투자자산의 리스크가 높다면 보다 높은 기대수익률을 가지고 있어야 합니다. <a href="Chapter3.html#sec-CAPM" class="quarto-xref"><span>Appendix : CAPM</span></a></p>
 <section id="선물포지션의-리스크" class="level4">
 <h4 class="anchored" data-anchor-id="선물포지션의-리스크">선물포지션의 리스크</h4>
 <p>현재 선물가격을 <span class="math inline">\(F_0\)</span>, 만기시점의 현물가격을 <span class="math inline">\(S_T\)</span>, 무위험이자율을 <span class="math inline">\(r\)</span>이라 할 때, 향후 현물가격이 상승할 것을 기대하고 선물 매수에 투자하는 방향성 투자자를 생각해봅시다. (<span class="math inline">\(S_T&gt;F_0\)</span> 기대)</p>
@@ -757,6 +763,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -791,7 +815,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
